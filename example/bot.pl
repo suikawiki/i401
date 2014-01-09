@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use I401::Main;
 
-my $hoge = I401::Main->new_from_config({
+my $irc = I401::Main->new_from_config({
     hostname => 'irc.example.org',
     tls => 0,
     port => 6667,
@@ -19,7 +19,7 @@ for (
   'I401::Rule::TravisCIFailure',
 ) {
     eval qq{ require $_ } or die $@;
-    $hoge->register_rules ($_->get);
+    $irc->register_rules ($_->get);
 }
 
-$hoge->run;
+$irc->run;

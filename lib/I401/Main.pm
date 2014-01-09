@@ -178,7 +178,7 @@ sub process_by_rules {
             next unless $args->{command} eq 'NOTICE';
         }
 
-        my $pattern = $_->{pattern} // qr/(?:)/;
+        my $pattern = defined $_->{pattern} ? $_->{pattern} : qr/(?:)/;
         next unless $args->{text} =~ /$_->{pattern}/; # $1...
 
         $_->{code}->($self, $args);
