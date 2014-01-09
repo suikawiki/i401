@@ -1,0 +1,9 @@
+URI~1.60
+AnyEvent~7.07
+Object::Event~1.23
+AnyEvent::IRC::Util
+AnyEvent::HTTPD~0.93
+Time::HiRes~1.9726
+AnyEvent::HTTP~2.15
+Encode~2.57
+common::sense~3.72
