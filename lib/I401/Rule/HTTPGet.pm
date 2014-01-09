@@ -16,7 +16,7 @@ sub get {
             my $start_time = time;
             http_get $1, sub {
                 my ($data, $headers) = @_;
-                $data //= '';
+                $data = '' unless defined $data;
                 my $title = '';
                 if ($data =~ m{<title>(.*?)</title>}) {
                     $title = decode 'utf-8', $1;
@@ -24,7 +24,8 @@ sub get {
                 my $msg = sprintf '[%d %s, %s %.3f KB %.3f s] %s',
                     $headers->{Status},
                     (decode 'utf-8', $headers->{Reason}),
-                    $headers->{'content-type'} // '(no Content-Type)',
+                    (defined $headers->{'content-type'}
+                         ? $headers->{'content-type'} : '(no Content-Type)'),
                     (length $data) / 1024,
                     time - $start_time,
                     $title;
