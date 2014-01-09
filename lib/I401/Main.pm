@@ -46,7 +46,7 @@ sub client {
         });
 
         $client->reg_cb(disconnect => sub {
-            $self->log('Disconnected', class => 'error');
+            $self->log('Disconnected: ' . (decode 'utf-8', $_[1]), class => 'error');
             $self->reconnect;
         });
 
