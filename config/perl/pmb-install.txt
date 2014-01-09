@@ -1,3 +1,4 @@
+Net::SSLeay~1.56
 AnyEvent~7.07
 URI~1.60
 Object::Event~1.23
