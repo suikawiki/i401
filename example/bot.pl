@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use I401::Main;
 
-my $hoge = Hoge->new_from_config({
+my $hoge = I401::Main->new_from_config({
     hostname => 'irc.example.org',
     tls => 0,
     port => 6667,
