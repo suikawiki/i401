@@ -194,6 +194,7 @@ sub get_channel_charset {
 
 sub send_notice {
     my ($self, $channel, $text) = @_;
+    $text =~ s/[\x0D\x0A]+/ /g;
     $self->client->send_srv(JOIN => encode 'utf-8', $channel)
         unless $self->{current_channels}->{$channel};
     my $charset = $self->get_channel_charset($channel);
@@ -204,6 +205,7 @@ sub send_notice {
 
 sub send_privmsg {
     my ($self, $channel, $text) = @_;
+    $text =~ s/[\x0D\x0A]+/ /g;
     $self->client->send_srv(JOIN => encode 'utf-8', $channel)
         unless $self->{current_channels}->{$channel};
     my $charset = $self->get_channel_charset($channel);
