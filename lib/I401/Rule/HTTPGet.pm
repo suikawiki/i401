@@ -18,7 +18,7 @@ sub get {
                 my ($data, $headers) = @_;
                 $data = '' unless defined $data;
                 my $title = '';
-                if ($data =~ m{<title>(.*?)</title>}) {
+                if ($data =~ m{<title>(.*?)</title>}s) {
                     $title = decode 'utf-8', $1;
                 }
                 my $msg = sprintf '[%d %s, %s %.3f KB %.3f s] %s',
