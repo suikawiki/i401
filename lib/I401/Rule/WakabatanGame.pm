@@ -12,11 +12,11 @@ sub get {
         pattern => qr{.},
         code => sub {
             my ($irc, $args) = @_;
-            my $seq = $channel_sequences->{$args->{channel}} //= [ split '', $string ];
+            my $seq = $channel_sequences->{$args->{channel}} ||= [ split '', $string ];
             if ($seq->[0] eq $args->{text}) {
-                push $seq, shift $seq;
+                push @$seq, shift $seq;
                 $irc->send_notice($args->{channel}, $seq->[0]);
-                push $seq, shift $seq;
+                push @$seq, shift $seq;
             }
         }
     });
