@@ -1,10 +1,14 @@
-Net::SSLeay~1.56
-AnyEvent~7.07
+Net::SSLeay~1.58
 URI~1.60
+AnyEvent~7.07
+Exporter::Lite~0.02
 Object::Event~1.23
+Types::Serialiser~1.0
 AnyEvent::IRC::Util
 Time::HiRes~1.9726
 AnyEvent::HTTPD~0.93
+JSON::XS~3.01
 AnyEvent::HTTP~2.15
 Encode~2.57
+Path::Class~0.33
 common::sense~3.72
