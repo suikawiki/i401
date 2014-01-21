@@ -16,6 +16,17 @@ sub get {
             my $url = $2;
             __PACKAGE__->$mode($irc, $args, $url);
         },
+    }, {
+        privmsg => 1,
+        pattern => qr<([Rr][Ff][Cc]\s*[0-9]+|draft-[0-9a-z-]+)>,
+        code => sub {
+            my ($irc, $args) = @_;
+            my $name = lc $1;
+            $name =~ s/\s+//g;
+            my $url = qq<https://tools.ietf.org/html/$name>;
+            $irc->send_notice($args->{channel}, $url);
+            __PACKAGE__->process_default($irc, $args, $url);
+        },
     });
 }
 
