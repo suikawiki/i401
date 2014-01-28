@@ -192,6 +192,16 @@ sub get_channel_charset {
            'utf-8';
 }
 
+sub _truncate {
+    my $self = $_[0];
+    my $max = $self->config->{max_length} || 200;
+    if ($max < length $_[1]) {
+        return substr ($_[1], 0, $max - 3) . '...';
+    } else {
+        return $_[1];
+    }
+}
+
 sub send_notice {
     my ($self, $channel, $text) = @_;
     $text =~ s/[\x0D\x0A]+/ /g;
@@ -200,7 +210,7 @@ sub send_notice {
     my $charset = $self->get_channel_charset($channel);
     $self->client->send_srv('NOTICE',
                             (encode 'utf-8', $channel),
-                            (encode $charset, $text));
+                            (encode $charset, $self->_truncate ($text)));
 }
 
 sub send_privmsg {
@@ -211,7 +221,7 @@ sub send_privmsg {
     my $charset = $self->get_channel_charset($channel);
     $self->client->send_srv('PRIVMSG',
                             (encode 'utf-8', $channel),
-                            (encode $charset, $text));
+                            (encode $charset, $self->_truncate ($text)));
 }
 
 sub listen {
