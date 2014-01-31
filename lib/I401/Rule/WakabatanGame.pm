@@ -9,7 +9,7 @@ my $channel_sequences = {};
 sub get {
     return ({
         privmsg => 1,
-        pattern => qr{.},
+        pattern => qr{^.$},
         code => sub {
             my ($irc, $args) = @_;
             my $seq = $channel_sequences->{$args->{channel}} ||= [ split '', $string ];
