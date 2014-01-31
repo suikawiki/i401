@@ -32,7 +32,7 @@ sub get {
 ## modifying, and improving, unless you try to pretend that you wrote it.
 ## i.e., the above copyright notice has to appear in all copies.
 ## THE AUTHOR DISCLAIMS ANY RESPONSIBILITY WITH REGARD TO THIS SOFTWARE.
-sub sl { q{      ++      +------ ____                 ____________________ ____________________
+sub sl () { q{      ++      +------ ____                 ____________________ ____________________
       ||      |+-+ |  |   \@@@@@@@@@@@     |  ___ ___ ___ ___ | |  ___ ___ ___ ___ |
     /---------|| | |  |    \@@@@@@@@@@@@@_ |  |_| |_| |_| |_| | |  |_| |_| |_| |_| |
    + ========  +-+ |  |                  | |__________________| |__________________|
