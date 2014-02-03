@@ -6,12 +6,13 @@ use utf8;
 my $texts = [
     '(っ=﹏=c) .｡o○ ( ねむいですぅ... )',
     '(っ=﹏=c) .｡o○ ( 眠いなら寝る!! )',
+    'ヾ(*＞ヮ＜)ﾉ" お供します、お布団の中まで',
 ];
 
 sub get {
     return ({
         privmsg => 1,
-        pattern => qr{ねむい},
+        pattern => qr{ねむい|nemui},
         code    => sub {
             my ($irc, $args) = @_;
             $irc->send_notice($args->{channel}, $texts->[int(rand(@$texts))]);
