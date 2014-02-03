@@ -12,7 +12,7 @@ my $texts = [
 sub get {
     return ({
         privmsg => 1,
-        pattern => qr{ねむい},
+        pattern => qr{ねむい|nemui},
         code    => sub {
             my ($irc, $args) = @_;
             $irc->send_notice($args->{channel}, $texts->[int(rand(@$texts))]);
