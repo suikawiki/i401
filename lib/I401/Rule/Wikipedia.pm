@@ -32,6 +32,7 @@ sub get {
             $word =~ s/^\s+//g;
             $word =~ s/\s+$//g;
             $word =~ s/\s+/ /g;
+            return unless length $word;
             my $lang = 'ja';
 
             my $url = sprintf q<http://%s/%s/abstract?name=%s>,
