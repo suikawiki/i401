@@ -34,6 +34,7 @@ sub client {
             }
         });
 
+        $self->log('Connect...');
         $client->reg_cb(connect => sub {
             my ($client, $err) = @_;
             $self->log("Connected");
@@ -46,7 +47,8 @@ sub client {
         });
 
         $client->reg_cb(disconnect => sub {
-            $self->log('Disconnected: ' . (decode 'utf-8', $_[1]), class => 'error');
+            $self->log('Disconnected', class => 'error');
+            undef $client;
             $self->reconnect;
         });
 
@@ -62,9 +64,10 @@ sub client {
             },
         );
 
-        $self->{timer} = AE::timer 10, 0, sub {
+        $self->{timer} = AE::timer 60, 0, sub {
             unless ($client->registered) {
                 $self->log("Timeout", class => 'error');
+                $client->disconnect;
                 $self->reconnect;
             }
             undef $self->{timer};
@@ -154,8 +157,7 @@ sub reconnect {
     my $self = shift;
     delete $self->{client};
     delete $self->{current_channels};
-    my $interval = 2;
-    my $timer; $timer = AE::timer $interval, 0, sub {
+    my $timer; $timer = AE::timer 10, 0, sub {
         $self->connect;
         undef $timer;
     };
