@@ -226,10 +226,15 @@ sub send_privmsg {
 
 sub listen {
     my $self = shift;
+    return unless $self->config->{http_port};
+
     $self->{httpd} = AnyEvent::HTTPD->new (
         hostname => $self->config->{http_hostname},
         port => $self->config->{http_port},
     );
+    $self->log(sprintf 'Listening %s:%d...',
+                   $self->config->{http_hostname},
+                   $self->config->{http_port});
 
     $self->{httpd}->reg_cb (
         '' => sub {
