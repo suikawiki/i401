@@ -59,7 +59,7 @@ sub get ($) {
             if ($headers->{Status} == 200 and length $data) {
               $data = [split /\x0A/, decode 'utf-8', $data];
               for (0..$#$data) {
-                $irc->send_notice($args->{channel}, "$_. $data->[$_]");
+                $irc->send_notice($args->{channel}, "@{[$_+1]}. $data->[$_]");
               }
             } else {
               $irc->send_notice($args->{channel}, "$word\ってなんですか");
