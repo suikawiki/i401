@@ -3,6 +3,11 @@ i401
 
 An IRC bot with Web API.
 
+* Usage
+
+  $ make deps
+  $ ./perl example/bot.pl
+
 * Author
 
 Wakaba <wakabatan@hatena.ne.jp>.
