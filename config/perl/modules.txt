@@ -1,5 +1,4 @@
 AnyEvent
-AnyEvent::HTTP
 AnyEvent::HTTPD
 AnyEvent::Handle
 AnyEvent::IRC::Client
