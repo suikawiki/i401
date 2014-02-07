@@ -17,6 +17,14 @@ sub get {
             my ($irc, $args) = @_;
             $irc->send_notice($args->{channel}, $texts->[int(rand(@$texts))]);
         }
+    }, {
+        notice => 1,
+        privmsg => 1,
+        pattern => qr{\bgbr\b},
+        code => sub {
+            my ($irc, $args) = @_;
+            $irc->send_notice($args->{channel}, "おはようございます");
+        },
     });
 }
 
