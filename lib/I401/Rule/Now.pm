@@ -34,6 +34,14 @@ sub get ($) {
     },
   }, {
     privmsg => 1,
+    pattern => qr{何曜日},
+    code => sub {
+      my ($irc, $args) = @_;
+      my $wd = qw(日 月 火 水 木 金 土)[(gmtime)[6]];
+      $irc->send_notice($args->{channel}, "今日は$wd\曜日です");
+    },
+  }, {
+    privmsg => 1,
     pattern => qr{いつやる},
     code => sub {
       my ($irc, $args) = @_;
