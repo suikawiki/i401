@@ -29,7 +29,7 @@ sub get ($) {
               (format_time $now, 'America/New_York' => 'ET'),
               (format_time $now, 'Europe/Berlin' => 'CET'),
               (format_time $now, 'Asia/Tokyo' => 'JST');
-      
+
       $irc->send_notice($args->{channel}, $msg);
     },
   }, {
@@ -42,7 +42,7 @@ sub get ($) {
     },
   }, {
     privmsg => 1,
-    pattern => qr{いつやる},
+    pattern => qr{いつやる|^いつ..の$},
     code => sub {
       my ($irc, $args) = @_;
       $irc->send_notice($args->{channel}, "今でしょ!");
