@@ -65,9 +65,9 @@ sub client {
         );
 
         $self->{timer} = AE::timer 60, 0, sub {
-            unless ($client->registered) {
+            unless ($client and $client->registered) {
                 $self->log("Timeout", class => 'error');
-                $client->disconnect;
+                $client->disconnect if $client;
                 $self->reconnect;
             }
             undef $self->{timer};
