@@ -194,6 +194,12 @@ sub get_channel_charset {
            'utf-8';
 }
 
+sub get_channel_users {
+    my ($self, $channel) = @_;
+    my $user_mode = ($self->client->{channel_list}->{$self->client->lower_case($channel)} || {});
+    return [ keys %$user_mode ];
+}
+
 sub send_notice {
     my ($self, $channel, $text) = @_;
     $text =~ s/[\x0D\x0A]+/ /g;
@@ -262,7 +268,7 @@ sub listen {
                 unless defined $channel and length $channel;
             $req->respond([400, 'Bad message', {}, '400 Bad message'])
                 unless defined $msg and length $msg;
-            
+
             $channel = decode 'utf-8', $channel;
             $msg = decode 'utf-8', $msg;
 
