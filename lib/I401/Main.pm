@@ -197,7 +197,8 @@ sub get_channel_charset {
 sub get_channel_users {
     my ($self, $channel) = @_;
     my $user_mode = ($self->client->{channel_list}->{$self->client->lower_case($channel)} || {});
-    return [ keys %$user_mode ];
+    my $myself = $self->client->{nick};
+    return [ grep { $_ ne $myself } keys %$user_mode ];
 }
 
 sub send_notice {
