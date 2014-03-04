@@ -13,7 +13,7 @@ sub get {
       $text =~ s/\s+/ /;
       $text =~ s/\A //;
       $text =~ s/ \z//;
-      I401::Data::RemoteJSON->get (q<https://gist.githubusercontent.com/wakaba/8363dc27f4c54f76b4a7/raw/485bfbc7341196ec4bbd8589e06ab03df784b0a8/hyakunin.json>, sub {
+      I401::Data::RemoteJSON->get (q<https://gist.githubusercontent.com/wakaba/8363dc27f4c54f76b4a7/raw/hyakunin.json>, sub {
         my $data = shift;
         for (@$data) {
           if ($_->{bodyKana} =~ /^\Q$text\E/ or
