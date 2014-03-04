@@ -17,7 +17,7 @@ sub get {
         my $data = shift;
         for (@$data) {
           if ($_->{bodyKana} =~ /^\Q$text\E/ or
-              $_->{bodyKanji} =~ /\Q$text\E/) {
+              $_->{bodyKanji} =~ /^\Q$text\E/) {
             $irc->send_notice($args->{channel}, sprintf '%s -- %s', $_->{bodyKanji}, $_->{nameKanji});
             last;
           }
