@@ -54,7 +54,6 @@ sub with_data ($$$) {
   http_get $url, sub {
     my ($data, $headers) = @_;
     if ($headers->{Status} == 200) {
-warn $data;
       $data = json_bytes2perl $data;
       $data = ref $data eq 'HASH' ? $data->{horoscope} : {};
       $data = $data->{each %$data};
