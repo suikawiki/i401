@@ -9,7 +9,7 @@ use AnyEvent::Util qw(run_cmd);
 sub get {
     return ({
         privmsg => 1,
-        pattern => qr<(?:(header)\s+)?(https?://[0-9A-Za-z_,\$!&:();./?+%\@=#-]+)>,
+        pattern => qr<(?:(header)\s+)?(https?://[0-9A-Za-z_,\$!&:();./?+%\@=~#-]+)>,
         code => sub {
             my ($irc, $args) = @_;
             my $mode = 'process_' . ($1 || 'default');
