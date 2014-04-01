@@ -34,6 +34,52 @@ sub get ($) {
         $irc->send_notice($args->{channel}, sprintf 'ラッキー属性は <%s %s=""> (%s) です☆', $attr->[0], $attr->[1], (join ', ', (defined $def->{desc} ? ($def->{desc}) : ()), ($attr->[0] eq 'embed' ? $def->{non_conforming} ? ('不適合') : () : $def->{conforming} ? () : ('不適合'))));
       });
     },
+  }, {
+    privmsg => 1,
+    pattern => qr{ラッキー\s*(?:URL|URI|IRI)\s*[Ss]cheme},
+    code => sub {
+      my ($irc, $args) = @_;
+      I401::Data::RemoteJSON->get(q<https://raw.github.com/manakai/data-web-defs/master/data/url-schemes.json>, sub {
+        my $data = shift;
+        my $schemes = [keys %$data];
+        my $scheme = $schemes->[rand @$schemes];
+        $irc->send_notice
+            ($args->{channel},
+             sprintf 'ラッキー URL scheme は %s: %sです',
+                 $scheme,
+                 ($data->{$scheme}->{ill_formed} ? '(構文エラー) ' : ''));
+      });
+    },
+  }, {
+    privmsg => 1,
+    pattern => qr{ラッキー\s*MIME\s*(?:型|タイプ|[Tt]ype)},
+    code => sub {
+      my ($irc, $args) = @_;
+      I401::Data::RemoteJSON->get(q<https://raw.github.com/manakai/data-web-defs/master/data/mime-types.json>, sub {
+        my $data = shift;
+        my $types = [grep { $data->{$_}->{type} eq 'subtype' } keys %$data];
+        my $type = $types->[rand @$types];
+        $irc->send_notice
+            ($args->{channel},
+             sprintf 'ラッキー MIME 型は %s です', $type);
+      });
+    },
+  }, {
+    privmsg => 1,
+    pattern => qr{ラッキー(?:通貨|貨幣)},
+    code => sub {
+      my ($irc, $args) = @_;
+      I401::Data::RemoteJSON->get(q<https://raw.github.com/manakai/data-web-defs/master/data/langtags.json>, sub {
+        my $data = shift;
+        my $types = [keys %{$data->{u_cu}}];
+        my $type = $types->[rand @$types];
+        $irc->send_notice
+            ($args->{channel},
+             sprintf 'ラッキー通貨は %s (%s) です',
+                 uc $type,
+                 join ' ', @{$data->{u_cu}->{$type}->{Description} or []});
+      });
+    },
   });
 } # get
 
