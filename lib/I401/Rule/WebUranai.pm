@@ -13,7 +13,7 @@ sub get ($) {
       my $ns = 'http://www.w3.org/1999/xhtml';
       I401::Data::RemoteJSON->get(q<https://raw.github.com/manakai/data-web-defs/master/data/elements.json>, sub {
         my $data = shift;
-        my $elements = [grep { not $_ eq '*' } keys %{$data->{elements}->{$ns}}];
+        my $elements = [grep { length $_ and not $_ eq '*' } keys %{$data->{elements}->{$ns}}];
         my $ln = $elements->[rand @$elements];
         my $def = $data->{elements}->{$ns}->{$ln};
         $irc->send_notice($args->{channel}, sprintf 'ラッキー要素は <%s> (%s) です☆', $ln, (join ', ', (defined $def->{desc} ? ($def->{desc}) : ()), ($def->{conforming} ? () : ('不適合'))));
