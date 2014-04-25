@@ -201,37 +201,43 @@ sub get_channel_users {
     return [ grep { not $client->is_my_nick($_) } keys %$user_mode ];
 }
 
-sub send_notice {
-    my ($self, $channel, $text) = @_;
-    $text =~ s/[\x0D\x0A]+/ /g;
+sub send_notice ($$$) {
+  my ($self, $channel, $text) = @_;
+  $text =~ s/\A[\x0D\x0A]+//;
+  $text =~ s/[\x0D\x0A]+\z//;
+  for my $text (split /\x0D?\x0A/, $text) {
     $self->client->send_srv(JOIN => encode 'utf-8', $channel)
         unless $self->{current_channels}->{$channel};
     my $charset = $self->get_channel_charset($channel);
     my $max = $self->config->{max_length} || 200;
-    while (length $text) {
+      while (length $text) {
         my $t = substr ($text, 0, $max);
         substr ($text, 0, $max) = '';
         $self->client->send_srv('NOTICE',
                                 (encode 'utf-8', $channel),
                                 (encode $charset, $t));
-    }
-}
+      }
+  }
+} # send_notice
 
-sub send_privmsg {
-    my ($self, $channel, $text) = @_;
-    $text =~ s/[\x0D\x0A]+/ /g;
+sub send_privmsg ($$$) {
+  my ($self, $channel, $text) = @_;
+  $text =~ s/\A[\x0D\x0A]+//;
+  $text =~ s/[\x0D\x0A]+\z//;
+  for my $text (split /\x0D?\x0A/, $text) {
     $self->client->send_srv(JOIN => encode 'utf-8', $channel)
         unless $self->{current_channels}->{$channel};
     my $charset = $self->get_channel_charset($channel);
     my $max = $self->config->{max_length} || 200;
     while (length $text) {
-        my $t = substr ($text, 0, $max);
-        substr ($text, 0, $max) = '';
-        $self->client->send_srv('PRIVMSG',
-                                (encode 'utf-8', $channel),
-                                (encode $charset, $t));
+      my $t = substr ($text, 0, $max);
+      substr ($text, 0, $max) = '';
+      $self->client->send_srv('PRIVMSG',
+                              (encode 'utf-8', $channel),
+                              (encode $charset, $t));
     }
-}
+  }
+} # send_privmsg
 
 sub listen {
     my $self = shift;
