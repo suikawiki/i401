@@ -6,9 +6,8 @@ Sub::Exporter~0.987
 JSON::XS~3.01
 Encode~2.59
 DateTime::Locale~0.45
-List::Util~1.38
+CPAN::Meta~2.141170
 Module::Implementation~0.07
-CPAN::Meta~2.140640
 Module::Build~0.4205
 List::MoreUtils~0.33
 Try::Tiny~0.21
@@ -25,7 +24,7 @@ CPAN::Meta::Requirements~2.125
 ExtUtils::Config~0.007
 common::sense~3.72
 Test::Requires~0.07
-Module::Metadata~1.000019
+Module::Metadata~1.000020
 Types::Serialiser~1.0
 Package::Stash::XS~0.28
 Test::Fatal~0.013
@@ -38,8 +37,8 @@ ExtUtils::CBuilder~0.280216
 Parse::CPAN::Meta~1.4414
 ExtUtils::Helpers~0.022
 URI~1.60
-version~0.9908
 Package::Stash~0.36
+version~0.9908
 Class::Load~0.21
 ExtUtils::InstallPaths~0.010
 Test::Tester~0.109
