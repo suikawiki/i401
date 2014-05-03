@@ -19,7 +19,7 @@ Dist::CheckConflicts~0.11
 Data::OptList~0.109
 AnyEvent::HTTP~2.15
 Test::More~1.001003
-Module::Build::Tiny~0.035
+Module::Build::Tiny~0.036
 CPAN::Meta::Requirements~2.125
 ExtUtils::Config~0.007
 common::sense~3.72
