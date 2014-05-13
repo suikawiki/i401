@@ -1,5 +1,5 @@
 DateTime~1.10
-Net::SSLeay~1.59
+Net::SSLeay~1.61
 Capture::Tiny~0.24
 Object::Event~1.23
 Sub::Exporter~0.987
@@ -50,5 +50,5 @@ Carp~1.3301
 DateTime::TimeZone~1.65
 JSON::PP~2.27203
 Class::Singleton~1.4
-Params::Validate~1.09
+Params::Validate~1.10
 Sub::Install~0.927
