@@ -19,6 +19,7 @@ sub set_source ($$$) {
 }
 
 my $Data = {};
+my $Weight = {};
 my $Updater;
 
 sub start_updater ($) {
@@ -34,6 +35,11 @@ sub start_updater ($) {
             for (grep { length and not /^#/ } map { s/^\s+//; $_ } split /\x0D?\x0A/, decode 'utf-8', scalar $f->slurp) {
               my ($key, $value) = split /=/, $_, 2;
               next unless defined $value;
+              if ($key =~ s/:([0-9]+)$//) {
+                $Weight->{$key} = 0+$1;
+              } else {
+                $Weight->{$key} = length $key;
+              }
               $Data->{$key} = [grep { length } split /\|/, $value];
             }
             warn __PACKAGE__ . ": Data reloaded\n";
@@ -54,7 +60,7 @@ sub get ($) {
       my @matched;
       for my $key (keys %$Data) {
         if ($input =~ /(\Q$key\E)/) {
-          $matched[length $1] = $key;
+          $matched[$Weight->{$key}] = $key;
         }
       }
       if (@matched) {
