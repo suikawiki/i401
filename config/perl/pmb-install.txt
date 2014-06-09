@@ -17,7 +17,7 @@ ExtUtils::ParseXS~3.24
 ExtUtils::MakeMaker~6.98
 Dist::CheckConflicts~0.11
 Data::OptList~0.109
-AnyEvent::HTTP~2.15
+AnyEvent::HTTP~2.21
 Test::More~1.001003
 Module::Build::Tiny~0.036
 CPAN::Meta::Requirements~2.125
@@ -28,7 +28,7 @@ Module::Metadata~1.000024
 Types::Serialiser~1.0
 Package::Stash::XS~0.28
 Test::Fatal~0.013
-TAP::Harness::Env~3.30
+TAP::Harness::Env~3.31
 Module::Runtime~0.014
 Params::Util~1.07
 Test::Output~1.03
