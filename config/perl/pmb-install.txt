@@ -1,5 +1,5 @@
 DateTime~1.10
-Net::SSLeay~1.63
+Net::SSLeay~1.64
 Capture::Tiny~0.24
 Object::Event~1.23
 Sub::Exporter~0.987
@@ -28,7 +28,7 @@ Module::Metadata~1.000024
 Types::Serialiser~1.0
 Package::Stash::XS~0.28
 Test::Fatal~0.013
-TAP::Harness::Env~3.31
+TAP::Harness::Env~3.32
 Module::Runtime~0.014
 Params::Util~1.07
 Test::Output~1.03
