@@ -11,6 +11,9 @@ my $URL = q<http://templla.com/api/list>;
 my $Data = {};
 my $Updater;
 
+our $MaxLines ||= 3;
+my $Waffle;
+
 sub start_updater ($) {
   $Updater = AE::timer 1, 60*(60 + 100 * rand 1), sub {
     warn __PACKAGE__ . ": Check for updates...\n";
@@ -43,10 +46,27 @@ sub get ($) {
         }
       }
       if (@matched) {
+        undef $Waffle;
         my $values = $Data->{$matched[-1]};
         my $msg = $values->[rand @$values];
+        if ($MaxLines > 0) {
+          my @msg = split /\x0D?\x0A/, $msg, $MaxLines + 1;
+          if (@msg > $MaxLines) {
+            $msg = join "\n", @msg[0..($MaxLines-1)];
+            $msg .= "\n" . '(省略されました・・・全てを読むにはワッフルワッフルと書き込んでください)';
+            $Waffle = join "\n", @msg[$MaxLines..$#msg];
+          }
+        }
         $irc->send_notice($args->{channel}, $msg);
       }
+    },
+  }, {
+    privmsg => 1,
+    pattern => qr{ワッフルワッフル},
+    code => sub {
+      my ($irc, $args) = @_;
+      $irc->send_notice($args->{channel}, $Waffle) if defined $Waffle;
+      undef $Waffle;
     },
   }, {
     privmsg => 1,
