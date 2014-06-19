@@ -12,7 +12,7 @@ my $Data = {};
 my $Updater;
 
 our $MaxLines ||= 3;
-my $Waffle;
+my $Waffles = {};
 
 sub start_updater ($) {
   $Updater = AE::timer 1, 60*(60 + 100 * rand 1), sub {
@@ -46,7 +46,7 @@ sub get ($) {
         }
       }
       if (@matched) {
-        undef $Waffle;
+        delete $Waffles->{$args->{channel}};
         my $values = $Data->{$matched[-1]};
         my $msg = $values->[rand @$values];
         if ($MaxLines > 0) {
@@ -54,7 +54,7 @@ sub get ($) {
           if (@msg > $MaxLines) {
             $msg = join "\n", @msg[0..($MaxLines-1)];
             $msg .= "\n" . '(省略されました・・・全てを読むにはワッフルワッフルと書き込んでください)';
-            $Waffle = join "\n", @msg[$MaxLines..$#msg];
+            $Waffles->{$args->{channel}} = join "\n", @msg[$MaxLines..$#msg];
           }
         }
         $irc->send_notice($args->{channel}, $msg);
@@ -65,8 +65,9 @@ sub get ($) {
     pattern => qr{ワッフルワッフル},
     code => sub {
       my ($irc, $args) = @_;
-      $irc->send_notice($args->{channel}, $Waffle) if defined $Waffle;
-      undef $Waffle;
+      $irc->send_notice($args->{channel}, $Waffles->{$args->{channel}})
+          if defined $Waffles->{$args->{channel}};
+      delete $Waffles->{$args->{channel}};
     },
   }, {
     privmsg => 1,
