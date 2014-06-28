@@ -53,5 +53,5 @@ Carp~1.3301
 DateTime::TimeZone~1.71
 JSON::PP~2.27203
 Class::Singleton~1.4
-Params::Validate~1.11
+Params::Validate~1.12
 Sub::Install~0.928
