@@ -288,7 +288,8 @@ sub listen {
                 $self->process_by_rules({
                     prefix => '!',
                     channel => $channel,
-                    command => $command,
+                    command => (($apply_rules and $apply_rules eq 'PRIVMSG')
+                                    ? 'PRIVMSG' : $command),
                     text => $msg,
                 }) if $apply_rules;
             };
