@@ -44,6 +44,7 @@ sub client {
             $self->log('Registered');
             $client->send_srv(JOIN => encode 'utf-8', $_)
                 for @{$config->{default_channels} or []};
+            $client->enable_ping (60);
         });
 
         $client->reg_cb(disconnect => sub {
@@ -260,6 +261,7 @@ sub listen {
                 return $req->respond([400, 'Not found', {}, '404 Not found']);
             }
             my $method = 'send_' . $1;
+            my $command = uc $1;
 
             return $req->respond([405, 'Method not allowed', {Allow => 'POST'},
                                   '405 Method not allowed'])
@@ -270,6 +272,7 @@ sub listen {
 
             my $channel = $req->parm('channel');
             my $msg = $req->parm('message');
+            my $apply_rules = $req->parm('rules');
 
             $req->respond([400, 'Bad channel', {}, '400 Bad channel'])
                 unless defined $channel and length $channel;
@@ -281,6 +284,13 @@ sub listen {
 
             AE::postpone {
                 $self->$method($channel, $msg);
+
+                $self->process_by_rules({
+                    prefix => '!',
+                    channel => $channel,
+                    command => $command,
+                    text => $msg,
+                }) if $apply_rules;
             };
             $req->respond([202, 'Accepted', {}, '202 Accepted']);
         },
