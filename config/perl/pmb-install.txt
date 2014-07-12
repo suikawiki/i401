@@ -39,7 +39,7 @@ ExtUtils::CBuilder~0.280216
 Test::Warnings~0.016
 Parse::CPAN::Meta~1.4414
 ExtUtils::Helpers~0.022
-URI~1.61
+URI~1.62
 version~0.9908
 Package::Stash~0.36
 Class::Load~0.21
