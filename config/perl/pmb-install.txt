@@ -1,5 +1,5 @@
 DateTime~1.10
-Net::SSLeay~1.64
+Net::SSLeay~1.65
 Capture::Tiny~0.24
 Object::Event~1.23
 Sub::Exporter~0.987
