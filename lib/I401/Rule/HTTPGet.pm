@@ -9,7 +9,7 @@ use AnyEvent::Util qw(run_cmd);
 sub get {
     return ({
         privmsg => 1,
-        pattern => qr<(?:(header)\s+)?(https?://[0-9A-Za-z_,\$!&:();./?+%\@=~#-]+)>,
+        pattern => qr<(?:(header|header_en)\s+)?(https?://[0-9A-Za-z_,\$!&:();./?+%\@=~#-]+)>,
         code => sub {
             my ($irc, $args) = @_;
             my $mode = 'process_' . ($1 || 'default');
@@ -68,6 +68,36 @@ sub process_header {
     $irc->log("Get <$url>");
     run_cmd(
         ['curl', '-D', '-', $url],
+        '>' => sub {
+            return unless $in_header;
+            my $data = shift;
+            if ($data =~ /\x0D\x0A\x0D\x0A/) {
+                push @$header, [split /\x0D\x0A\x0D\x0A/, $data, 2]->[0];
+                kill 'INT', $pid;
+                undef $in_header;
+            } else {
+                push @$header, $data;
+            }
+        },
+        '$$' => \$pid,
+    )->cb(sub {
+        my $msg = join '', @$header;
+        for (split /\x0D\x0A/, $msg) {
+            tr/\x0D\x0A/  /;
+            $irc->send_notice($args->{channel}, $_);
+        }
+    });
+}
+
+sub process_header_en {
+    my ($class, $irc, $args, $url) = @_;
+
+    my $pid;
+    my $in_header = 1;
+    my $header = [];
+    $irc->log("Get <$url>");
+    run_cmd(
+        ['curl', '--header', 'Accept-Language: en', '-D', '-', $url],
         '>' => sub {
             return unless $in_header;
             my $data = shift;
