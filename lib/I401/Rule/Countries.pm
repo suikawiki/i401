@@ -16,8 +16,8 @@ sub get ($) {
         my $region = $region[rand @region];
         my $region_data = $data->{areas}->{$region};
         my $msg = sprintf 'ラッキー国は%s (%s)',
-            $region_data->{ja_name} // $region_data->{en_name},
-            $region_data->{code} // $region_data->{code3} // '#' . $region;
+            $region_data->{ja_name} || $region_data->{en_name},
+            $region_data->{code} || $region_data->{code3} || '#' . $region;
         $irc->send_notice($args->{channel}, $msg) unless $@;
       });
     },
