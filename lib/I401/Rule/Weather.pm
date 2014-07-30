@@ -37,7 +37,7 @@ sub get ($) {
           my @time = gmtime $data->{dt};
           sprintf '%sの現在の天気は%s、気温 %d°C、湿度 %d%%、気圧 %dhPa (%d/%d %02d:%02d UTC)',
               $city,
-              $Weather->{$weather} // $weather,
+              $Weather->{$weather} || $weather,
               $data->{main}->{temp},
               $data->{main}->{humidity},
               $data->{main}->{pressure},
