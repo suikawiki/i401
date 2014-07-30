@@ -49,6 +49,7 @@ sub get ($) {
         delete $Waffles->{$args->{channel}};
         my $values = $Data->{$matched[-1]};
         my $msg = $values->[rand @$values];
+        return if 5 > length $input and $msg =~ /^https?:/;
         if ($MaxLines > 0) {
           my @msg = split /\x0D?\x0A/, $msg, $MaxLines + 1;
           if (@msg > $MaxLines) {
