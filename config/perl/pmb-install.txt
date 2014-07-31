@@ -22,7 +22,7 @@ Data::OptList~0.109
 AnyEvent::HTTP~2.21
 Test::More~1.001003
 Module::Build::Tiny~0.037
-CPAN::Meta::Requirements~2.125
+CPAN::Meta::Requirements~2.126
 ExtUtils::Config~0.008
 common::sense~3.73
 Test::Requires~0.08
