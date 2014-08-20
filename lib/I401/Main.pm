@@ -89,6 +89,18 @@ sub client {
             }
         });
 
+        $client->reg_cb (kick => sub {
+            my ($client, $kicked_nick, $channel, $is_myself, $msg, $kicker_nick) = @_;
+            if ($client->is_my_nick ($kicked_nick)) { # $is_myself is wrong
+                $self->log ("Kicked by $kicker_nick ($msg)");
+                my $timer; $timer = AE::timer 10, 0, sub {
+                    $self->client->send_srv(JOIN => encode 'utf-8', $channel)
+                        unless $self->{current_channels}->{$channel};
+                    undef $timer;
+                };
+            }
+        });
+
         $client->reg_cb(channel_remove => sub {
             my ($client, $msg, $channel, @nick) = @_;
             if (grep { $client->is_my_nick($_) } @nick) {
