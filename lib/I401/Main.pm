@@ -50,7 +50,11 @@ sub client {
         $client->reg_cb(disconnect => sub {
             $self->log('Disconnected', class => 'error');
             undef $client;
-            $self->reconnect;
+            if ($self->{shutdown}) {
+              (delete $self->{shutdown_cv})->send if $self->{shutdown_cv};
+            } else {
+              $self->reconnect;
+            }
         });
 
         $client->connect(
@@ -160,11 +164,18 @@ sub connect {
     $self->client;
 }
 
-sub disconnect {
-    my $self = shift;
-    delete $self->{current_channels};
-    $self->client->disconnect if $self->{client};
-}
+sub disconnect ($) {
+  my $self = shift;
+  delete $self->{current_channels};
+  if ($self->{client}) {
+    $self->client->disconnect;
+    delete $self->{client};
+  } else {
+    if ($self->{shutdown}) {
+      (delete $self->{shutdown_cv})->send if $self->{shutdown_cv};
+    }
+  }
+} # disconnect
 
 sub reconnect {
     my $self = shift;
@@ -310,7 +321,7 @@ sub listen {
     );
 }
 
-sub run {
+sub run_as_cv ($) {
     my $self = shift;
     $self->connect;
     $self->listen;
@@ -319,21 +330,28 @@ sub run {
 
     $self->{sigterm} = AE::signal TERM => sub {
         $self->log('SIGTERM received', class => 'error');
+        $self->{shutdown} = 1;
+        $self->{shutdown_cv} = $cv;
         $self->disconnect;
         delete $self->{sigterm};
         delete $self->{sigint};
-        AE::postpone { $cv->send };
     };
     $self->{sigint} = AE::signal INT => sub {
         $self->log('SIGINT received', class => 'error');
+        $self->{shutdown} = 1;
+        $self->{shutdown_cv} = $cv;
         $self->disconnect;
         delete $self->{sigterm};
         delete $self->{sigint};
-        AE::postpone { $cv->send };
     };
 
-    $cv->recv;
-}
+    return $cv;
+} # run_as_cv
+
+sub run ($) {
+  my $cv = $_[0]->run_as_cv;
+  $cv->recv;
+} # run
 
 sub stderr {
     return $_[0]->{stderr} ||= do {
@@ -350,9 +368,10 @@ sub stderr {
     };
 }
 
-sub log {
-    my ($self, $text, %args) = @_;
-    $self->stderr->push_write(encode 'utf-8', ('[' . (gmtime) . '] ' . $text . "\n"));
-}
+sub log ($$;%) {
+  my ($self, $text, %args) = @_;
+  my $name = $self->config->{name};
+  $self->stderr->push_write(encode 'utf-8', ('[' . (gmtime) . '] ' . (defined $name ? "$name " : '') . $text . "\n"));
+} # log
 
 1;
