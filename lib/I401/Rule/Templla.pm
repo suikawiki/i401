@@ -46,7 +46,7 @@ sub get ($) {
         }
       }
       if (@matched) {
-        delete $Waffles->{$args->{channel}};
+        delete $Waffles->{$irc, $args->{channel}};
         my $values = $Data->{$matched[-1]};
         my $msg = $values->[rand @$values];
         return if 5 > length $input and $msg =~ /^https?:/;
@@ -55,7 +55,7 @@ sub get ($) {
           if (@msg > $MaxLines) {
             $msg = join "\n", @msg[0..($MaxLines-1)];
             $msg .= "\n" . '(省略されました・・・全てを読むにはワッフルワッフルと書き込んでください)';
-            $Waffles->{$args->{channel}} = join "\n", @msg[$MaxLines..$#msg];
+            $Waffles->{$irc, $args->{channel}} = join "\n", @msg[$MaxLines..$#msg];
           }
         }
         $irc->send_notice($args->{channel}, $msg);
@@ -66,9 +66,9 @@ sub get ($) {
     pattern => qr{ワッフルワッフル},
     code => sub {
       my ($irc, $args) = @_;
-      $irc->send_notice($args->{channel}, $Waffles->{$args->{channel}})
-          if defined $Waffles->{$args->{channel}};
-      delete $Waffles->{$args->{channel}};
+      $irc->send_notice($args->{channel}, $Waffles->{$irc, $args->{channel}})
+          if defined $Waffles->{$irc, $args->{channel}};
+      delete $Waffles->{$irc, $args->{channel}};
     },
   }, {
     privmsg => 1,
