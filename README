@@ -10,11 +10,13 @@ An IRC bot with Web API.
 
 * Author
 
-Wakaba <wakabatan@hatena.ne.jp>.
+Wakaba <wakaba@suikawiki.org>.
 
 * License
 
 Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2014 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
