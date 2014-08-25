@@ -10,13 +10,16 @@ my $CachedData = {};
 sub get ($$$;%) {
   my ($class, $url, $code, %args) = @_;
   my $max_age = $args{max_age} || 60*60;
-  if ($CachedData->{$url} and $CachedData->{$url}->{time} + $max_age < time) {
+  if ($CachedData->{$url} and time < $CachedData->{$url}->{time} + $max_age) {
     AE::postpone { $code->($CachedData->{$url}->{data}) };
+    return;
   }
+
+  warn "<$url>...\n";
   http_get $url, sub {
     my ($data) = @_;
     my $json = json_bytes2perl $data;
-    $CachedData->{$json} = {data => $json, time => time} if $json;
+    $CachedData->{$url} = {data => $json, time => time} if $json;
     $code->($json);
   };
 } # get
