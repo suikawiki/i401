@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use AnyEvent;
 use AnyEvent::HTTP;
-use JSON::Functions::XS qw(json_bytes2perl);
+use JSON::PS;
 
 my $CachedData = {};
 
