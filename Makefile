@@ -42,7 +42,7 @@ clean-webua-oauth:
 	rm -fr local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm
 local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm:
 	mkdir -p local/perl-latest/pm/lib/perl5/Web/UserAgent
-	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-web-useragent/master/lib/Web/UserAgent/OAuth.pm
+	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-web-useragent-functions/master/lib/Web/UserAgent/OAuth.pm
 
 ## ------ Tests ------
 
