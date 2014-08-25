@@ -40,9 +40,10 @@ local/perl-latest/pm/lib/perl5/JSON/PS.pm:
 webua-oauth: local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm
 clean-webua-oauth:
 	rm -fr local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm
-local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm:
+local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm: local/bin/pmbp.pl
 	mkdir -p local/perl-latest/pm/lib/perl5/Web/UserAgent
 	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-web-useragent-functions/master/lib/Web/UserAgent/OAuth.pm
+	perl local/bin/pmbp.pl --install-module Digest::SHA
 
 ## ------ Tests ------
 
