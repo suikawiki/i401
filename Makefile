@@ -1,5 +1,7 @@
 all:
 
+clean: clean-json-ps clean-webua-oauth
+
 WGET = wget
 CURL = curl
 GIT = git
@@ -12,7 +14,7 @@ updatenightly: local/bin/pmbp.pl
 
 ## ------ Setup ------
 
-deps: git-submodules pmbp-install
+deps: git-submodules pmbp-install json-ps webua-oauth
 
 git-submodules:
 	$(GIT) submodule update --init
@@ -27,6 +29,20 @@ pmbp-update: git-submodules pmbp-upgrade
 	    --write-makefile-pl cpanfile
 pmbp-install: pmbp-upgrade
 	perl local/bin/pmbp.pl --install
+
+json-ps: local/perl-latest/pm/lib/perl5/JSON/PS.pm
+clean-json-ps:
+	rm -fr local/perl-latest/pm/lib/perl5/JSON/PS.pm
+local/perl-latest/pm/lib/perl5/JSON/PS.pm:
+	mkdir -p local/perl-latest/pm/lib/perl5/JSON
+	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-json-ps/master/lib/JSON/PS.pm
+
+webua-oauth: local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm
+clean-webua-oauth:
+	rm -fr local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm
+local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm:
+	mkdir -p local/perl-latest/pm/lib/perl5/Web/UserAgent
+	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-web-useragent/master/lib/Web/UserAgent/OAuth.pm
 
 ## ------ Tests ------
 
