@@ -48,6 +48,7 @@ sub get ($) {
           $data =~ s/\s+$//;
           $data =~ s/\s+/ /g;
           $irc->send_notice($args->{channel}, $data);
+          $irc->send_notice($args->{channel}, sprintf q<http://%s.wikipedia.org/wiki/%s>, pe $lang, pe $word);
         } else {
           my $url = sprintf q<http://%s/%s-wiktionary/defs?name=%s>,
               __PACKAGE__->host,
@@ -61,6 +62,7 @@ sub get ($) {
               for (0..$#$data) {
                 $irc->send_notice($args->{channel}, "@{[$_+1]}. $data->[$_]");
               }
+              $irc->send_notice($args->{channel}, sprintf q<http://%s.wiktionary.org/wiki/%s>, pe $lang, pe $word);
             } else {
               $irc->send_notice($args->{channel}, "$word\ってなんですか");
             }
