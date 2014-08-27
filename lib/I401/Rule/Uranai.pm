@@ -35,7 +35,7 @@ sub get ($) {
         if (ref $data eq 'ARRAY') {
           $data = [grep { ref $_ eq 'HASH' and $_->{sign} eq $sign } @$data]->[0];
           if (defined $data) {
-            my $msg = sprintf '[%s %s] %sラッキーカラーは%s、ラッキーアイテムは%s。',
+            my $msg = sprintf '[%s %s] %s ラッキーカラーは%s、ラッキーアイテムは%s。',
                 $today, $sign,
                 $data->{content}, $data->{color}, $data->{item};
             $irc->send_notice($args->{channel}, $msg);
