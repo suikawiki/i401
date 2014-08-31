@@ -5,7 +5,7 @@ Object::Event~1.23
 Sub::Exporter~0.987
 Encode~2.62
 DateTime::Locale~0.45
-List::Util~1.39
+List::Util~1.40
 Module::Implementation~0.09
 CPAN::Meta~2.142060
 Module::Build~0.4208
@@ -56,6 +56,6 @@ B::Hooks::EndOfScope~0.13
 namespace::clean~0.25
 JSON::PP~2.27203
 Class::Singleton~1.4
-DateTime::TimeZone~1.73
+DateTime::TimeZone~1.74
 Params::Validate~1.13
 Sub::Install~0.928
