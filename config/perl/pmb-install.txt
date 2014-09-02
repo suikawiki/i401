@@ -8,7 +8,7 @@ DateTime::Locale~0.45
 List::Util~1.40
 Module::Implementation~0.09
 CPAN::Meta~2.142060
-Module::Build~0.4208
+Module::Build~0.4210
 List::MoreUtils~0.33
 Try::Tiny~0.22
 AnyEvent~7.07
@@ -38,7 +38,7 @@ Params::Util~1.07
 Devel::CheckBin~0.02
 Test::Output~1.03
 Perl::OSType~1.007
-ExtUtils::CBuilder~0.280217
+ExtUtils::CBuilder~0.280219
 Test::Warnings~0.016
 Parse::CPAN::Meta~1.4414
 URI~1.64
