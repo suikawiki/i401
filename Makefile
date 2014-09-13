@@ -1,6 +1,6 @@
 all:
 
-clean: clean-json-ps clean-webua-oauth
+clean: clean-json-ps clean-webua-oauth clean-kyuureki
 
 WGET = wget
 CURL = curl
@@ -14,7 +14,7 @@ updatenightly: local/bin/pmbp.pl
 
 ## ------ Setup ------
 
-deps: git-submodules pmbp-install json-ps webua-oauth
+deps: git-submodules pmbp-install json-ps webua-oauth kyuureki
 
 git-submodules:
 	$(GIT) submodule update --init
@@ -36,6 +36,13 @@ clean-json-ps:
 local/perl-latest/pm/lib/perl5/JSON/PS.pm:
 	mkdir -p local/perl-latest/pm/lib/perl5/JSON
 	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-json-ps/master/lib/JSON/PS.pm
+
+kyuureki: local/perl-latest/pm/lib/perl5/Kyuureki.pm
+clean-kyuureki:
+	rm -fr local/perl-latest/pm/lib/perl5/Kyuureki.pm
+local/perl-latest/pm/lib/perl5/Kyuureki.pm:
+	mkdir -p local/perl-latest/pm/lib/perl5
+	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-kyuureki/master/lib/Kyuureki.pm
 
 webua-oauth: local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm
 clean-webua-oauth:
