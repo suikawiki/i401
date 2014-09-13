@@ -37,8 +37,11 @@ sub get ($) {
     pattern => qr{何曜日},
     code => sub {
       my ($irc, $args) = @_;
-      my $wd = qw(日 月 火 水 木 金 土)[(gmtime)[6]];
-      $irc->send_notice($args->{channel}, "今日は$wd\曜日です");
+      my $now = [gmtime];
+      my $wd = qw(日 月 火 水 木 金 土)[$now->[6]];
+      my $msg = sprintf '本日 %04d-%02d-%02d は%s曜日です',
+          $now->[5]+1900, $now->[4]+1, $now->[3], $wd;
+      $irc->send_notice ($args->{channel}, $msg);
     },
   }, {
     privmsg => 1,
