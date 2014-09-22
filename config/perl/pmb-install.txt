@@ -25,9 +25,7 @@ ExtUtils::Config~0.008
 Variable::Magic~0.53
 common::sense~3.73
 Module::Metadata~1.000024
-Test::Requires~0.08
 Package::Stash::XS~0.28
-Test::Fatal~0.013
 TAP::Harness::Env~3.33
 Module::Runtime~0.014
 Params::Util~1.07
@@ -36,9 +34,9 @@ ExtUtils::CBuilder~0.280219
 Parse::CPAN::Meta~1.4414
 URI~1.64
 ExtUtils::Helpers~0.022
-Class::Load~0.22
-Package::Stash~0.36
 version~0.9909
+Package::Stash~0.37
+Class::Load~0.22
 ExtUtils::InstallPaths~0.010
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
