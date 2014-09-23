@@ -7,7 +7,7 @@ use Encode;
 sub get ($) {
   return ({
     privmsg => 1,
-    pattern => qr{\x1B\x24B},
+    pattern => qr{\x1B\x24B|\x24B.*?\x28B},
     code => sub {
       my ($irc, $args) = @_;
       $irc->send_notice ($args->{channel}, encode 'iso-2022-jp', 'このチャンネルでは文字コード UTF-8 を使ってください');
