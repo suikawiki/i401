@@ -22,7 +22,7 @@ Module::Build::Tiny~0.039
 CPAN::Meta::Requirements~2.128
 Sub::Exporter::Progressive~0.001011
 ExtUtils::Config~0.008
-Variable::Magic~0.54
+Variable::Magic~0.55
 common::sense~3.73
 Module::Metadata~1.000024
 Package::Stash::XS~0.28
