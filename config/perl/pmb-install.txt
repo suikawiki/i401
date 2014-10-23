@@ -19,7 +19,6 @@ Sub::Identify~0.08
 Data::OptList~0.109
 AnyEvent::HTTP~2.21
 Module::Build::Tiny~0.039
-CPAN::Meta::Requirements~2.128
 Sub::Exporter::Progressive~0.001011
 ExtUtils::Config~0.008
 Variable::Magic~0.55
@@ -34,9 +33,9 @@ ExtUtils::CBuilder~0.280220
 Parse::CPAN::Meta~1.4414
 URI~1.64
 ExtUtils::Helpers~0.022
-version~0.9909
-Package::Stash~0.37
 Class::Load~0.22
+Package::Stash~0.37
+version~0.9909
 ExtUtils::InstallPaths~0.010
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
