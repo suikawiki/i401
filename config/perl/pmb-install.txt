@@ -45,6 +45,6 @@ B::Hooks::EndOfScope~0.13
 Class::Singleton~1.4
 JSON::PP~2.27300
 namespace::clean~0.25
-DateTime::TimeZone~1.75
+DateTime::TimeZone~1.76
 Params::Validate~1.13
 Sub::Install~0.928
