@@ -1,7 +1,7 @@
 Net::SSLeay~1.66
 DateTime~1.12
 Object::Event~1.23
-Encode~2.63
+Encode~2.64
 DateTime::Locale~0.45
 List::Util~1.41
 CPAN::Meta~2.142690
