@@ -26,7 +26,7 @@ Time::HiRes~1.9726
 CPAN::Meta::YAML~0.012
 AnyEvent::HTTP~2.21
 JSON::PP~2.27300
-Class::Singleton~1.4
+Class::Singleton~1.5
 DateTime::TimeZone~1.78
 Params::Validate~1.13
 common::sense~3.73
