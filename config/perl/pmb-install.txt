@@ -6,7 +6,7 @@ Module::Runtime~0.014
 Encode~2.64
 DateTime::Locale~0.45
 List::Util~1.41
-CPAN::Meta~2.142690
+CPAN::Meta~2.143240
 Module::Implementation~0.09
 Module::Build~0.4210
 List::MoreUtils~0.33
@@ -29,5 +29,5 @@ DateTime::TimeZone~1.80
 Class::Singleton~1.5
 JSON::PP~2.27300
 Params::Validate~1.13
-CPAN::Meta::Requirements~2.129
+CPAN::Meta::Requirements~2.130
 common::sense~3.73
