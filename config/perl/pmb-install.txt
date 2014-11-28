@@ -3,7 +3,7 @@ DateTime~1.12
 Module::Metadata~1.000024
 Object::Event~1.23
 Module::Runtime~0.014
-Encode~2.64
+Encode~2.65
 DateTime::Locale~0.45
 List::Util~1.41
 CPAN::Meta~2.143240
