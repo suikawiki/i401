@@ -16,7 +16,7 @@ Parse::CPAN::Meta~1.4414
 Try::Tiny~0.22
 parent~0.228
 URI~1.65
-AnyEvent~7.07
+AnyEvent~7.08
 ExtUtils::ParseXS~3.24
 version~0.9909
 List::AllUtils~0.09
