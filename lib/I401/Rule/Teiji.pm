@@ -7,7 +7,7 @@ use AnyEvent;
 
 my $Events = {};
 
-sub add_event ($$$) {
+sub add_event ($$%) {
   my ($class, $name, %args) = @_;
   $Events->{$name} = \%args;
 } # add_event
@@ -43,19 +43,39 @@ sub get ($) {
       return unless defined $def;
 
       my @time = gmtime;
-      $time[0] = $def->{second} if defined $def->{second};
+      $time[0] = $def->{second} || 0;
       $time[1] = $def->{minute} if defined $def->{minute};
       $time[2] = $def->{hour} if defined $def->{hour};
+      $time[3] = $def->{day} if defined $def->{day};
+      $time[4] = $def->{month}-1 if defined $def->{month};
+      $time[5] = $def->{year} if defined $def->{year};
+      my $step = $def->{step} || 'day';
       my $time = timegm_nocheck (@time);
-      if ($time < time) {
-        $time[3]++;
+      while ($time < time) {
+        $time[3]++ if $step eq 'day';
+        $time[4]++ if $step eq 'month';
+        $time[5]++ if $step eq 'year';
         $time = timegm_nocheck (@time);
       }
 
+      if ($step eq 'year') {
+        for (1..32) {
+          schedule $irc, $args->{channel}, "$name\まであと $_ 日", $time - $_*60*60*24;
+        }
+        for (1..5, 10, 12) {
+          schedule $irc, $args->{channel}, "$name\まであと $_ 時間くらい", $time - $_*60*60;
+        }
+        for (1, 5, 10, 30) {
+          schedule $irc, $args->{channel}, "$name\まであと $_ 分くらい", $time - $_*60;
+        }
+        for (1..10, 30) {
+          schedule $irc, $args->{channel}, "$name\まであと $_ 秒くらい", $time - $_;
+        }
+      }
       schedule $irc, $args->{channel}, "$name\なう", $time;
 
       my $seconds = $time - time;
-      $irc->send_notice($args->{channel}, "$name\まであと $seconds 秒");
+      $irc->send_notice($args->{channel}, "$name\まであと $seconds 秒くらい");
     },
   }, {
     privmsg => 1,
