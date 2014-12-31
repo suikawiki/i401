@@ -59,16 +59,16 @@ sub get ($) {
       }
 
       if ($step eq 'year') {
-        for (1..32) {
+        for (1..32, 50, 100, 200, 300) {
           schedule $irc, $args->{channel}, "$name\まであと $_ 日", $time - $_*60*60*24;
         }
-        for (1..5, 10, 12) {
+        for (1..5, 10, 12, 20, 30, 50, 100) {
           schedule $irc, $args->{channel}, "$name\まであと $_ 時間くらい", $time - $_*60*60;
         }
-        for (1, 5, 10, 30) {
+        for (1, 5, 10, 15, 20, 25, 30, 45, 100) {
           schedule $irc, $args->{channel}, "$name\まであと $_ 分くらい", $time - $_*60;
         }
-        for (1..10, 30) {
+        for (1..10, 15, 30, 25, 40, 45, 50, 55, 100) {
           schedule $irc, $args->{channel}, "$name\まであと $_ 秒くらい", $time - $_;
         }
       }
