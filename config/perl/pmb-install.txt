@@ -28,7 +28,7 @@ AnyEvent::HTTP~2.21
 DateTime::TimeZone~1.83
 JSON::PP~2.27300
 Class::Singleton~1.5
-Params::Validate~1.15
+Params::Validate~1.16
 CPAN::Meta::Requirements~2.131
 Exporter::Tiny~0.042
 common::sense~3.73
