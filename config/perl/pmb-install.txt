@@ -1,6 +1,6 @@
 Net::SSLeay~1.67
 DateTime~1.18
-Module::Metadata~1.000025
+Module::Metadata~1.000026
 Object::Event~1.23
 Module::Runtime~0.014
 Encode~2.67
@@ -18,14 +18,14 @@ parent~0.228
 URI~1.65
 AnyEvent~7.08
 ExtUtils::ParseXS~3.24
-version~0.9909
+version~0.9911
 List::AllUtils~0.09
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
 CPAN::Meta::YAML~0.012
 Time::HiRes~1.9726
 AnyEvent::HTTP~2.21
-DateTime::TimeZone~1.83
+DateTime::TimeZone~1.84
 JSON::PP~2.27300
 Class::Singleton~1.5
 Params::Validate~1.17
