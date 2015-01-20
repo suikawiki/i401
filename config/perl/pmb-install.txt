@@ -8,7 +8,7 @@ DateTime::Locale~0.45
 List::Util~1.41
 CPAN::Meta~2.143240
 Module::Implementation~0.09
-Module::Build~0.4210
+Module::Build~0.4211
 List::MoreUtils~0.402
 Perl::OSType~1.007
 ExtUtils::CBuilder~0.280220
