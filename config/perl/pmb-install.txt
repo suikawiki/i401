@@ -18,7 +18,7 @@ parent~0.228
 URI~1.65
 AnyEvent~7.08
 ExtUtils::ParseXS~3.24
-version~0.9911
+version~0.9912
 List::AllUtils~0.09
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
