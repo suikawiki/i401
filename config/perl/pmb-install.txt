@@ -9,7 +9,7 @@ List::Util~1.41
 CPAN::Meta~2.143240
 Module::Implementation~0.09
 Module::Build~0.4211
-List::MoreUtils~0.404
+List::MoreUtils~0.405
 Perl::OSType~1.008
 ExtUtils::CBuilder~0.280220
 Parse::CPAN::Meta~1.4414
@@ -28,7 +28,7 @@ AnyEvent::HTTP~2.21
 DateTime::TimeZone~1.85
 JSON::PP~2.27300
 Class::Singleton~1.5
-Params::Validate~1.17
+Params::Validate~1.18
 CPAN::Meta::Requirements~2.132
 Exporter::Tiny~0.042
 common::sense~3.73
