@@ -29,6 +29,6 @@ DateTime::TimeZone~1.85
 JSON::PP~2.27300
 Class::Singleton~1.5
 Params::Validate~1.18
-CPAN::Meta::Requirements~2.132
+CPAN::Meta::Requirements~2.133
 Exporter::Tiny~0.042
 common::sense~3.73
