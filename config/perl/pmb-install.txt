@@ -9,7 +9,7 @@ List::Util~1.41
 CPAN::Meta~2.143240
 Module::Implementation~0.09
 Module::Build~0.4211
-List::MoreUtils~0.405
+List::MoreUtils~0.406
 Perl::OSType~1.008
 ExtUtils::CBuilder~0.280220
 Parse::CPAN::Meta~1.4414
