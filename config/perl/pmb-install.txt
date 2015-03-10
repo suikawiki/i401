@@ -6,7 +6,7 @@ Module::Runtime~0.014
 Encode~2.70
 DateTime::Locale~0.45
 List::Util~1.41
-CPAN::Meta~2.143240
+CPAN::Meta~2.150001
 Module::Implementation~0.09
 Module::Build~0.4211
 List::MoreUtils~0.406
@@ -14,7 +14,7 @@ Perl::OSType~1.008
 ExtUtils::CBuilder~0.280220
 Parse::CPAN::Meta~1.4414
 Try::Tiny~0.22
-parent~0.229
+parent~0.231
 URI~1.67
 AnyEvent~7.08
 ExtUtils::ParseXS~3.24
