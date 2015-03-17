@@ -22,7 +22,7 @@ version~0.9912
 List::AllUtils~0.09
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
-CPAN::Meta::YAML~0.012
+CPAN::Meta::YAML~0.014
 Time::HiRes~1.9726
 AnyEvent::HTTP~2.21
 DateTime::TimeZone~1.85
