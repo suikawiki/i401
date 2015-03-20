@@ -14,7 +14,7 @@ Perl::OSType~1.008
 ExtUtils::CBuilder~0.280220
 Parse::CPAN::Meta~1.4414
 Try::Tiny~0.22
-parent~0.231
+parent~0.232
 URI~1.67
 AnyEvent~7.08
 ExtUtils::ParseXS~3.24
