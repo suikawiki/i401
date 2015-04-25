@@ -25,7 +25,7 @@ AnyEvent::HTTPD~0.93
 CPAN::Meta::YAML~0.014
 Time::HiRes~1.9726
 AnyEvent::HTTP~2.21
-DateTime::TimeZone~1.87
+DateTime::TimeZone~1.88
 JSON::PP~2.27300
 Class::Singleton~1.5
 Params::Validate~1.18
