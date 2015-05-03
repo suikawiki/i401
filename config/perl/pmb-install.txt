@@ -10,7 +10,7 @@ List::MoreUtils~0.410
 Try::Tiny~0.22
 URI~1.67
 parent~0.232
-AnyEvent~7.08
+AnyEvent~7.09
 List::AllUtils~0.09
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
