@@ -15,9 +15,9 @@ List::AllUtils~0.09
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
 Time::HiRes~1.9726
-AnyEvent::HTTP~2.21
+AnyEvent::HTTP~2.22
 Class::Singleton~1.5
-DateTime::TimeZone~1.88
+DateTime::TimeZone~1.90
 Params::Validate~1.18
 Exporter::Tiny~0.042
 common::sense~3.73
