@@ -6,7 +6,7 @@ Encode~2.73
 List::Util~1.42
 DateTime::Locale~0.45
 Module::Implementation~0.09
-List::MoreUtils~0.410
+List::MoreUtils~0.412
 Try::Tiny~0.22
 URI~1.67
 parent~0.232
