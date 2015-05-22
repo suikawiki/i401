@@ -3,8 +3,8 @@ DateTime~1.18
 Object::Event~1.23
 Module::Runtime~0.014
 Encode~2.73
+DateTime::Locale~0.46
 List::Util~1.42
-DateTime::Locale~0.45
 Module::Implementation~0.09
 List::MoreUtils~0.412
 Try::Tiny~0.22
@@ -12,6 +12,7 @@ URI~1.67
 parent~0.232
 AnyEvent~7.09
 List::AllUtils~0.09
+Dist::CheckConflicts~0.11
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
 Time::HiRes~1.9726
