@@ -11,10 +11,9 @@ Try::Tiny~0.22
 URI~1.67
 parent~0.234
 AnyEvent~7.09
-ExtUtils::MakeMaker~7.04
+List::AllUtils~0.09
 Dist::CheckConflicts~0.11
 AnyEvent::IRC::Util
-List::AllUtils~0.09
 AnyEvent::HTTPD~0.93
 Time::HiRes~1.9726
 AnyEvent::HTTP~2.22
