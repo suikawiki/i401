@@ -2,7 +2,7 @@ Net::SSLeay~1.69
 DateTime~1.19
 Object::Event~1.23
 Module::Runtime~0.014
-Encode~2.73
+Encode~2.74
 DateTime::Locale~0.46
 List::Util~1.42
 Module::Implementation~0.09
