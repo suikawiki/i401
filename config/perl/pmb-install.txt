@@ -1,4 +1,4 @@
-Net::SSLeay~1.69
+Net::SSLeay~1.70
 DateTime~1.19
 Object::Event~1.23
 Module::Runtime~0.014
@@ -8,7 +8,7 @@ List::Util~1.42
 Module::Implementation~0.09
 List::MoreUtils~0.413
 Try::Tiny~0.22
-URI~1.67
+URI~1.68
 parent~0.234
 AnyEvent~7.09
 List::AllUtils~0.09
