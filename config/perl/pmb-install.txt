@@ -19,6 +19,6 @@ Time::HiRes~1.9726
 AnyEvent::HTTP~2.22
 Class::Singleton~1.5
 DateTime::TimeZone~1.92
-Params::Validate~1.19
+Params::Validate~1.20
 Exporter::Tiny~0.042
 common::sense~3.73
