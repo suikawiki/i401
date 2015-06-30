@@ -72,22 +72,26 @@ sub get ($) {
         return unless defined $def;
 
         my @time = defined $def->{unix} ? gmtime $def->{unix} : gmtime;
-        $time[0] = $def->{second} || 0;
-        $time[1] = $def->{minute} if defined $def->{minute};
-        $time[2] = $def->{hour} if defined $def->{hour};
-        $time[3] = $def->{day} if defined $def->{day};
-        $time[4] = $def->{month}-1 if defined $def->{month};
-        $time[5] = $def->{year} if defined $def->{year};
         my $step = $def->{step} || 'day';
+        if (not defined $def->{unix}) {
+          $time[0] = $def->{second} || 0;
+          $time[1] = $def->{minute} if defined $def->{minute};
+          $time[2] = $def->{hour} if defined $def->{hour};
+          $time[3] = $def->{day} if defined $def->{day};
+          $time[4] = $def->{month}-1 if defined $def->{month};
+          $time[5] = $def->{year} if defined $def->{year};
+        }
         my $time = timegm_nocheck (@time);
-        while ($time < time) {
-          $time[3]++ if $step eq 'day';
-          $time[4]++ if $step eq 'month';
-          $time[5]++ if $step eq 'year';
-          $time = timegm_nocheck (@time);
+        if (not defined $def->{unix}) {
+          while ($time < time) {
+            $time[3]++ if $step eq 'day';
+            $time[4]++ if $step eq 'month';
+            $time[5]++ if $step eq 'year';
+            $time = timegm_nocheck (@time);
+          }
         }
 
-        if ($step eq 'year') {
+        if ($step eq 'year' or defined $def->{unix}) {
           for (1..32, 50, 100, 200, 300) {
             schedule $irc, $args->{channel}, "$name\まであと $_ 日", $time - $_*60*60*24;
           }
