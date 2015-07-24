@@ -80,6 +80,20 @@ sub get ($) {
                  join ' ', @{$data->{u_cu}->{$type}->{Description} or []});
       });
     },
+  }, {
+    privmsg => 1,
+    pattern => qr{ラッキー\s*TLD},
+    code => sub {
+      my ($irc, $args) = @_;
+      I401::Data::RemoteJSON->get(q<https://raw.github.com/manakai/data-web-defs/master/data/tlds.json>, sub {
+        my $data = shift;
+        my $types = [keys %{$data->{tlds}}];
+        my $type = $types->[rand @$types];
+        $irc->send_notice
+            ($args->{channel},
+             sprintf 'ラッキーTLDは .%s です', $type);
+      });
+    },
   });
 } # get
 
