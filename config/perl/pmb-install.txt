@@ -3,8 +3,8 @@ DateTime~1.20
 Object::Event~1.23
 Module::Runtime~0.014
 Encode~2.76
-DateTime::Locale~0.46
 List::Util~1.42
+DateTime::Locale~0.46
 Module::Implementation~0.09
 List::MoreUtils~0.413
 Try::Tiny~0.22
@@ -12,14 +12,13 @@ URI~1.69
 parent~0.234
 AnyEvent~7.11
 AnyEvent::IRC::Util
-List::AllUtils~0.09
 Dist::CheckConflicts~0.11
 AnyEvent::HTTPD~0.93
 Time::HiRes~1.9726
 AnyEvent::HTTP~2.22
 Canary::Stability~2006
 Class::Singleton~1.5
-DateTime::TimeZone~1.92
+DateTime::TimeZone~1.93
 Params::Validate~1.21
 Exporter::Tiny~0.042
 common::sense~3.74
