@@ -18,7 +18,7 @@ Time::HiRes~1.9726
 AnyEvent::HTTP~2.22
 Canary::Stability~2006
 Class::Singleton~1.5
-DateTime::TimeZone~1.93
+DateTime::TimeZone~1.94
 Params::Validate~1.21
 Exporter::Tiny~0.042
 common::sense~3.74
