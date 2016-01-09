@@ -8,7 +8,7 @@ DateTime::Locale~1.02
 Module::Implementation~0.09
 List::MoreUtils~0.413
 Try::Tiny~0.24
-URI~1.69
+URI~1.71
 parent~0.234
 AnyEvent~7.11
 AnyEvent::IRC::Util
