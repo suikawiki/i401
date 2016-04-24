@@ -26,11 +26,11 @@ URI~1.71
 version~0.9916
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
-Time::HiRes~1.9732
+Time::HiRes~1.9733
 CPAN::Meta::YAML~0.018
 TAP::Harness~3.36
 DateTime::TimeZone~1.98
 Class::Singleton~1.5
-JSON::PP~2.27300
+JSON::PP~2.27400
 Params::Validate~1.23
 Exporter::Tiny~0.042
