@@ -6,7 +6,7 @@ DateTime::Locale~1.03
 List::Util~1.45
 CPAN::Meta~2.150005
 Module::Implementation~0.09
-Module::Build~0.4216
+Module::Build~0.4218
 List::MoreUtils~0.413
 Try::Tiny~0.24
 AnyEvent~7.12
