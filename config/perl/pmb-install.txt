@@ -7,7 +7,7 @@ List::Util~1.45
 CPAN::Meta~2.150005
 Module::Implementation~0.09
 Module::Build~0.4218
-List::MoreUtils~0.413
+List::MoreUtils~0.415
 Try::Tiny~0.24
 AnyEvent~7.12
 parent~0.234
