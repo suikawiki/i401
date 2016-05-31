@@ -23,7 +23,7 @@ Perl::OSType~1.009
 ExtUtils::CBuilder~0.280224
 Parse::CPAN::Meta~1.4417
 URI~1.71
-version~0.9916
+version~0.9917
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
 Time::HiRes~1.9733
