@@ -26,7 +26,7 @@ version~0.9917
 AnyEvent::IRC::Util
 AnyEvent::HTTPD~0.93
 CPAN::Meta::YAML~0.018
-Time::HiRes~1.9733
+Time::HiRes~1.9735
 TAP::Harness~3.36
 JSON::PP~2.27400
 Class::Singleton~1.5
