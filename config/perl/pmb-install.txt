@@ -18,7 +18,7 @@ CPAN::Meta::Requirements~2.140
 common::sense~3.74
 Module::Metadata~1.000027
 Module::Runtime~0.014
-Perl::OSType~1.009
+Perl::OSType~1.010
 ExtUtils::CBuilder~0.280224
 Parse::CPAN::Meta~1.4417
 URI~1.71
