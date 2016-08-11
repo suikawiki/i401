@@ -8,7 +8,7 @@ Class::Singleton~1.5
 DateTime~1.36
 DateTime::Locale~1.05
 DateTime::TimeZone~2.01
-Encode~2.85
+Encode~2.86
 List::Util~1.45
 Module::Implementation~0.09
 Net::SSLeay~1.77
