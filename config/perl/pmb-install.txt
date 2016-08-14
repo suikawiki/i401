@@ -11,7 +11,7 @@ DateTime::TimeZone~2.01
 Encode~2.86
 List::Util~1.45
 Module::Implementation~0.09
-Net::SSLeay~1.77
+Net::SSLeay~1.78
 Object::Event~1.23
 Package::Stash~0.37
 Package::Stash::XS~0.28
