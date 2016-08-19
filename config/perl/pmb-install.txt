@@ -18,7 +18,7 @@ Package::Stash::XS~0.28
 Params::Validate~1.24
 Sub::Exporter::Progressive~0.001011
 Sub::Identify~0.12
-Sub::Name~0.18
+Sub::Name~0.19
 Time::HiRes~1.9739
 Try::Tiny~0.27
 URI~1.71
