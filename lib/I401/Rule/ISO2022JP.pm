@@ -2,7 +2,7 @@ package I401::Rule::ISO2022JP;
 use strict;
 use warnings;
 use utf8;
-use Encode;
+use Web::Encoding;
 
 sub get ($) {
   return ({
@@ -10,7 +10,7 @@ sub get ($) {
     pattern => qr{\x1B\x24B|\x24B.*?\x28B},
     code => sub {
       my ($irc, $args) = @_;
-      $irc->send_notice ($args->{channel}, encode 'iso-2022-jp', 'このチャンネルでは文字コード UTF-8 を使ってください');
+      $irc->send_notice ($args->{channel}, encode_web_charset 'iso-2022-jp', 'このチャンネルでは文字コード UTF-8 を使ってください');
     },
   });
 } # get

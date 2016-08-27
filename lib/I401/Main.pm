@@ -1,12 +1,12 @@
 package I401::Main;
 use strict;
 use warnings;
-use Encode;
 use AnyEvent;
 use AnyEvent::Handle;
 use AnyEvent::IRC::Client;
 use AnyEvent::IRC::Util qw(decode_ctcp);
 use AnyEvent::HTTPD;
+use Web::Encoding;
 
 sub new_from_config {
     return bless {config => $_[1]}, $_[0];
@@ -42,7 +42,7 @@ sub client {
         });
         $client->reg_cb(registered => sub {
             $self->log('Registered');
-            $client->send_srv(JOIN => encode 'utf-8', $_)
+            $client->send_srv(JOIN => encode_web_utf8 $_)
                 for @{$config->{default_channels} or []};
             $client->enable_ping (60);
         });
@@ -87,7 +87,7 @@ sub client {
         $client->reg_cb(join => sub {
             my ($client, $nick, $channel, $is_myself) = @_;
             if ($is_myself) {
-                $channel = decode 'utf-8', $channel;
+                $channel = decode_web_utf8 $channel;
                 $self->log('Join ' . $channel);
                 $self->{current_channels}->{$channel}++;
             }
@@ -98,7 +98,7 @@ sub client {
             if ($client->is_my_nick ($kicked_nick)) { # $is_myself is wrong
                 $self->log ("Kicked by $kicker_nick ($msg)");
                 my $timer; $timer = AE::timer 10, 0, sub {
-                    $self->client->send_srv(JOIN => encode 'utf-8', $channel)
+                    $self->client->send_srv(JOIN => encode_web_utf8 $channel)
                         unless $self->{current_channels}->{$channel};
                     undef $timer;
                 };
@@ -108,7 +108,7 @@ sub client {
         $client->reg_cb(channel_remove => sub {
             my ($client, $msg, $channel, @nick) = @_;
             if (grep { $client->is_my_nick($_) } @nick) {
-                $channel = decode 'utf-8', $channel;
+                $channel = decode_web_utf8 $channel;
                 $self->log('Part ' . $channel);
                 delete $self->{current_channels}->{$channel};
             }
@@ -117,14 +117,14 @@ sub client {
         $client->reg_cb(irc_privmsg => sub {
             my (undef, $msg) = @_;
             my ($trail, $ctcp) = decode_ctcp($msg->{params}->[-1]);
-            my $channel = decode 'utf-8', $msg->{params}->[0];
+            my $channel = decode_web_utf8 $msg->{params}->[0];
             $msg->{params}->[-1] = $trail;
 
             if ($msg->{params}->[-1] ne '') {
                 my $nick = [split /!/, $msg->{prefix}, 2]->[0];
                 unless ($client->is_my_nick($nick)) {
                     my $charset = $self->get_channel_charset($channel);
-                    my $text = decode $charset, $msg->{params}->[-1];
+                    my $text = decode_web_charset $charset, $msg->{params}->[-1];
                     $self->process_by_rules({
                         prefix => $msg->{prefix},
                         channel => $channel,
@@ -137,14 +137,14 @@ sub client {
         $client->reg_cb(irc_notice => sub {
             my (undef, $msg) = @_;
             my ($trail, $ctcp) = decode_ctcp($msg->{params}->[-1]);
-            my $channel = decode 'utf-8', $msg->{params}->[0];
+            my $channel = decode_web_utf8 $msg->{params}->[0];
             $msg->{params}->[-1] = $trail;
 
             if ($msg->{params}->[-1] ne '') {
                 my $nick = [split /!/, $msg->{prefix}, 2]->[0];
                 unless ($client->is_my_nick($nick)) {
                     my $charset = $self->get_channel_charset($channel);
-                    my $text = decode $charset, $msg->{params}->[-1];
+                    my $text = decode_web_charset $charset, $msg->{params}->[-1];
                     $self->process_by_rules({
                         prefix => $msg->{prefix},
                         channel => $channel,
@@ -221,7 +221,7 @@ sub get_channel_charset {
 sub get_channel_users {
     my ($self, $channel) = @_;
     my $client = $self->client;
-    my $user_mode = ($client->{channel_list}->{encode 'utf-8', $client->lower_case($channel)} || {});
+    my $user_mode = ($client->{channel_list}->{encode_web_utf8 $client->lower_case($channel)} || {});
     return [ grep { not $client->is_my_nick($_) } keys %$user_mode ];
 }
 
@@ -230,7 +230,7 @@ sub send_notice ($$$) {
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
   for my $text (split /\x0D?\x0A/, $text) {
-    $self->client->send_srv(JOIN => encode 'utf-8', $channel)
+    $self->client->send_srv(JOIN => encode_web_utf8 $channel)
         unless $self->{current_channels}->{$channel};
     my $charset = $self->get_channel_charset($channel);
     my $max = $self->config->{max_length} || 200;
@@ -238,8 +238,8 @@ sub send_notice ($$$) {
         my $t = substr ($text, 0, $max);
         substr ($text, 0, $max) = '';
         $self->client->send_srv('NOTICE',
-                                (encode 'utf-8', $channel),
-                                (encode $charset, $t));
+                                (encode_web_utf8 $channel),
+                                (encode_web_charset $charset, $t));
       }
   }
 } # send_notice
@@ -249,7 +249,7 @@ sub send_privmsg ($$$) {
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
   for my $text (split /\x0D?\x0A/, $text) {
-    $self->client->send_srv(JOIN => encode 'utf-8', $channel)
+    $self->client->send_srv(JOIN => encode_web_utf8 $channel)
         unless $self->{current_channels}->{$channel};
     my $charset = $self->get_channel_charset($channel);
     my $max = $self->config->{max_length} || 200;
@@ -257,8 +257,8 @@ sub send_privmsg ($$$) {
       my $t = substr ($text, 0, $max);
       substr ($text, 0, $max) = '';
       $self->client->send_srv('PRIVMSG',
-                              (encode 'utf-8', $channel),
-                              (encode $charset, $t));
+                              (encode_web_utf8 $channel),
+                              (encode_web_charset $charset, $t));
     }
   }
 } # send_privmsg
@@ -302,8 +302,8 @@ sub listen {
             $req->respond([400, 'Bad message', {}, '400 Bad message'])
                 unless defined $msg and length $msg;
 
-            $channel = decode 'utf-8', $channel;
-            $msg = decode 'utf-8', $msg;
+            $channel = decode_web_utf8 $channel;
+            $msg = decode_web_utf8 $msg;
 
             AE::postpone {
                 $self->$method($channel, $msg);
@@ -371,7 +371,7 @@ sub stderr {
 sub log ($$;%) {
   my ($self, $text, %args) = @_;
   my $name = $self->config->{name};
-  $self->stderr->push_write(encode 'utf-8', ('[' . (gmtime) . '] ' . (defined $name ? "$name " : '') . $text . "\n"));
+  $self->stderr->push_write(encode_web_utf8 ('[' . (gmtime) . '] ' . (defined $name ? "$name " : '') . $text . "\n"));
 } # log
 
 1;

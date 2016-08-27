@@ -3,6 +3,5 @@ AnyEvent::HTTPD
 AnyEvent::Handle
 AnyEvent::IRC::Client
 AnyEvent::IRC::Util
-Encode
 Net::SSLeay
 Time::HiRes

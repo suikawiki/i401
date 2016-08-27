@@ -1,0 +1,3 @@
+[submodule "modules/web-encodings"]
+	path = modules/web-encodings
+	url = https://github.com/manakai/perl-web-encodings

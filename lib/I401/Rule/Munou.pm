@@ -2,7 +2,7 @@ package I401::Rule::Munou;
 use strict;
 use warnings;
 use utf8;
-use Encode;
+use Web::Encoding;
 use Path::Class;
 use AnyEvent;
 use AnyEvent::Util qw(run_cmd);
@@ -32,7 +32,7 @@ sub start_updater ($) {
           my $f = $temp_repo_d->file ($FileName);
           if (-f $f) {
             $Data = {};
-            for (grep { length and not /^#/ } map { s/^\s+//; $_ } split /\x0D?\x0A/, decode 'utf-8', scalar $f->slurp) {
+            for (grep { length and not /^#/ } map { s/^\s+//; $_ } split /\x0D?\x0A/, decode_web_utf8 scalar $f->slurp) {
               my ($key, $value) = split /=/, $_, 2;
               next unless defined $value;
               if ($key =~ s/:([0-9]+)$//) {

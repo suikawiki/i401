@@ -2,7 +2,7 @@ package I401::Rule::HTTPGet;
 use strict;
 use warnings;
 use Time::HiRes qw(time);
-use Encode;
+use Web::Encoding;
 use AnyEvent::HTTP;
 use AnyEvent::Util qw(run_cmd);
 
@@ -45,11 +45,11 @@ sub process_default {
                         'shift_jis' => 'windows-31j'}->{lc $1} || $charset;
         }
         if ($data =~ m{<title>(.*?)</title>}s) {
-            $title = decode $charset, $1;
+            $title = decode_web_charset $charset, $1;
         }
         my $msg = sprintf '[%d %s, %s %.3f KB %.3f s] %s',
             $headers->{Status},
-            (decode 'utf-8', $headers->{Reason}),
+            (decode_web_utf8 $headers->{Reason}),
             (defined $headers->{'content-type'}
                  ? $headers->{'content-type'} : '(no Content-Type)'),
             (length $data) / 1024,
