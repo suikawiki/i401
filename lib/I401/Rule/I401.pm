@@ -1,19 +1,19 @@
 package I401::Rule::I401;
 use strict;
 use warnings;
-use Path::Class;
 use utf8;
+use Path::Tiny;
 use AnyEvent;
 use AnyEvent::Util qw(run_cmd);
 use Time::Local qw(timegm_nocheck);
 
-my $RootD = file (__FILE__)->dir->parent->parent->parent;
+my $RootPath = path (__FILE__)->parent->parent->parent->parent;
 
 sub get_git_data_as_cv () {
   my $cv = AE::cv;
   my $in = '';
   run_cmd
-      ("cd \Q$RootD\E && git log HEAD --format='format:%at %H' -n 1",
+      ("cd \Q$RootPath\E && git log HEAD --format='format:%at %H' -n 1",
        '>' => sub {
          $in .= $_[0] if defined $_[0];
        })->cb (sub {
@@ -71,7 +71,7 @@ sub get ($) {
 
 =head1 LICENSE
 
-Copyright 2014 Wakaba <wakaba@suikawiki.org>.
+Copyright 2014-2016 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

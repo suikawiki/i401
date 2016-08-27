@@ -2,3 +2,4 @@ AnyEvent
 AnyEvent::HTTP
 AnyEvent::Util
 DateTime
+Path::Tiny

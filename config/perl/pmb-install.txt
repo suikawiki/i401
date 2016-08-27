@@ -1,3 +1,4 @@
+Path::Tiny
 AnyEvent~7.12
 AnyEvent::HTTP~2.22
 AnyEvent::HTTPD~0.93

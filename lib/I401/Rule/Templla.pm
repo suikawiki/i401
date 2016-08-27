@@ -2,7 +2,6 @@ package I401::Rule::Templla;
 use strict;
 use warnings;
 use utf8;
-use Path::Class;
 use AnyEvent;
 use I401::Data::RemoteJSON;
 

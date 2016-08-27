@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 use Web::Encoding;
-use Path::Class;
 use AnyEvent;
 use AnyEvent::Util qw(run_cmd);
 
@@ -15,7 +14,7 @@ sub set_source ($$$) {
   my ($class, $repo_url, $file_name, $temp_d) = @_;
   $RepoURL = $repo_url;
   $FileName = $file_name;
-  $TempD = $temp_d;
+  $TempD = $temp_d; # XXX This is a Path::Class directory
 }
 
 my $Data = {};
