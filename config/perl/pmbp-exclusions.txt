@@ -1,1 +1,8 @@
 - "../../modules/json-functions-xs" tests
+
+- "../../modules/web-resource" build tests
+- "../../modules/promise" build tests
+- "../../modules/web-url" build tests
+- "../../modules/web-encodings.2" build tests
+- "../../modules/charclass" build tests
+- "../../modules/web-datetime" build tests

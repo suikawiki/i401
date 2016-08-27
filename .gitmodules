@@ -1,3 +1,24 @@
 [submodule "modules/web-encodings"]
 	path = modules/web-encodings
 	url = https://github.com/manakai/perl-web-encodings
+	track = master
+[submodule "modules/web-resource"]
+	path = modules/web-resource
+	url = https://github.com/manakai/perl-web-resource
+	track = master
+[submodule "modules/promise"]
+	path = modules/promise
+	url = git://github.com/wakaba/perl-promise
+	track = master
+[submodule "modules/web-url"]
+	path = modules/web-url
+	url = git://github.com/manakai/perl-web-url
+	track = master
+[submodule "modules/charclass"]
+	path = modules/charclass
+	url = git://github.com/wakaba/perl-charclass
+	track = master
+[submodule "modules/web-datetime"]
+	path = modules/web-datetime
+	url = git://github.com/manakai/perl-web-datetime
+	track = master
