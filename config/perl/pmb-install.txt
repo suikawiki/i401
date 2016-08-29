@@ -1,5 +1,5 @@
 AnyEvent~7.12
-AnyEvent::HTTP~2.22
+AnyEvent::HTTP~2.23
 AnyEvent::HTTPD~0.93
 AnyEvent::IRC::Util
 AnyEvent::Util
