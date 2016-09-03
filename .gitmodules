@@ -14,10 +14,6 @@
 	path = modules/web-url
 	url = git://github.com/manakai/perl-web-url
 	track = master
-[submodule "modules/charclass"]
-	path = modules/charclass
-	url = git://github.com/wakaba/perl-charclass
-	track = master
 [submodule "modules/web-datetime"]
 	path = modules/web-datetime
 	url = git://github.com/manakai/perl-web-datetime
