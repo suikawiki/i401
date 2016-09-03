@@ -6,16 +6,25 @@ use AnyEvent::Handle;
 use AnyEvent::HTTPD;
 use Web::Encoding;
 
-sub new_from_config {
-    return bless {config => $_[1]}, $_[0];
-}
+sub new_from_config ($$) {
+  return bless {config => $_[1]}, $_[0];
+} # new_from_config
 
 sub config {
     return $_[0]->{config};
 }
 
-# connect
-# disconnect
+sub protocol ($) {
+  return $_[0]->{protocol};
+} # protocol
+
+sub connect ($) {
+  return $_[0]->protocol->connect;
+} # connect
+
+sub disconnect ($) {
+  return $_[0]->protocol->disconnect;
+} # disconnect
 
 sub register_rules {
     my $self = shift;
@@ -35,14 +44,18 @@ sub process_by_rules {
         }
 
         my $pattern = defined $_->{pattern} ? $_->{pattern} : qr/(?:)/;
-        next unless $args->{text} =~ /$_->{pattern}/; # $1...
-
-        $_->{code}->($self, $args);
+        next       unless $args->{text} =~ /$pattern/;
+        $_->{code}->($self, $args); ## $1... of ^ available from |code|
     }
 }
 
-# send_notice
-# send_privmsg
+sub send_notice ($$$) {
+  return $_[0]->protocol->send_notice ($_[1], $_[2]);
+} # send_notice
+
+sub send_privmsg ($$$) {
+  return $_[0]->protocol->send_privmsg ($_[1], $_[2]);
+} # send_privmsg
 
 sub listen {
     my $self = shift;
@@ -103,30 +116,34 @@ sub listen {
 }
 
 sub run_as_cv ($) {
-    my $self = shift;
-    $self->connect;
-    $self->listen;
+  my $self = shift;
+  my $cv = AE::cv;
 
-    my $cv = AE::cv;
+  $self->_set_protocol;
+  $self->connect;
+  $self->listen;
 
-    $self->{sigterm} = AE::signal TERM => sub {
-        $self->log('SIGTERM received', class => 'error');
-        $self->{shutdown} = 1;
-        $self->{shutdown_cv} = $cv;
-        $self->disconnect;
-        delete $self->{sigterm};
-        delete $self->{sigint};
-    };
-    $self->{sigint} = AE::signal INT => sub {
-        $self->log('SIGINT received', class => 'error');
-        $self->{shutdown} = 1;
-        $self->{shutdown_cv} = $cv;
-        $self->disconnect;
-        delete $self->{sigterm};
-        delete $self->{sigint};
-    };
+  my $shutdown = sub {
+    delete $self->{protocol};
+    $cv->send;
+  };
 
-    return $cv;
+  $self->{sigterm} = AE::signal TERM => sub {
+    $self->log('SIGTERM received', class => 'error');
+    $self->protocol->set_shutdown_mode ($shutdown);
+    $self->disconnect;
+    delete $self->{sigterm};
+    delete $self->{sigint};
+  };
+  $self->{sigint} = AE::signal INT => sub {
+    $self->log('SIGINT received', class => 'error');
+    $self->protocol->set_shutdown_mode ($shutdown);
+    $self->disconnect;
+    delete $self->{sigterm};
+    delete $self->{sigint};
+  };
+
+  return $cv;
 } # run_as_cv
 
 sub run ($) {
@@ -149,10 +166,20 @@ sub stderr {
     };
 }
 
+sub logger ($) {
+  my $self = $_[0];
+  my $stderr = $self->stderr;
+  my $name = $self->config->{name};
+  $name = defined $name ? "$name " : '';
+  return sub {
+    $stderr->push_write
+        (encode_web_utf8 ('[' . (gmtime) . '] ' . $name . $_[0] . "\n"));
+  };
+} # logger
+
 sub log ($$;%) {
   my ($self, $text, %args) = @_;
-  my $name = $self->config->{name};
-  $self->stderr->push_write(encode_web_utf8 ('[' . (gmtime) . '] ' . (defined $name ? "$name " : '') . $text . "\n"));
+  $self->logger->($text);
 } # log
 
 1;
