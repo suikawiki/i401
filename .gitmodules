@@ -18,3 +18,7 @@
 	path = modules/web-datetime
 	url = git://github.com/manakai/perl-web-datetime
 	track = master
+[submodule "modules/json-ps"]
+	path = modules/json-ps
+	url = https://github.com/wakaba/perl-json-ps
+	track = master

@@ -5,7 +5,6 @@ use AnyEvent;
 use AnyEvent::Handle;
 use AnyEvent::HTTPD;
 use Web::Encoding;
-use I401::Protocol::IRC;
 
 sub new_from_config ($$) {
   return bless {config => $_[1]}, $_[0];
@@ -17,7 +16,18 @@ sub config {
 
 sub _set_protocol ($) {
   my ($self) = @_;
-  return $self->{protocol} = I401::Protocol::IRC->new_from_i401_and_config_and_logger
+  my $proto = $self->config->{protocol} || '';
+  my $cls;
+  if ($proto eq 'slack') {
+    require I401::Protocol::Slack;
+    $cls = 'I401::Protocol::Slack';
+  } elsif ($proto eq '' or $proto eq 'irc') {
+    require I401::Protocol::IRC;
+    $cls = 'I401::Protocol::IRC';
+  } else {
+    die "Unknown protocol |$proto|";
+  }
+  return $self->{protocol} = $cls->new_from_i401_and_config_and_logger
       ($self, $self->config, $self->logger);
 } # _set_protocol
 
