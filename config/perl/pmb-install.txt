@@ -37,7 +37,7 @@ Time::HiRes~1.9739
 Try::Tiny~0.27
 URI~1.71
 Unicode::Stringprep~1.105
-Variable::Magic~0.59
+Variable::Magic~0.60
 common::sense~3.74
 namespace::autoclean~0.28
 namespace::clean~0.27
