@@ -12,7 +12,7 @@ Class::Data::Inheritable~0.08
 Class::Singleton~1.5
 Data::Dumper~2.161
 DateTime~1.39
-DateTime::Locale~1.07
+DateTime::Locale~1.08
 DateTime::TimeZone~2.03
 Devel::StackTrace~2.01
 Digest::SHA~5.96
