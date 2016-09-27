@@ -13,7 +13,7 @@ Class::Singleton~1.5
 Data::Dumper~2.161
 DateTime~1.39
 DateTime::Locale~1.08
-DateTime::TimeZone~2.03
+DateTime::TimeZone~2.04
 Devel::StackTrace~2.01
 Digest::SHA~5.96
 Encode~2.86
@@ -36,11 +36,11 @@ Sub::Exporter::Progressive~0.001012
 Sub::Identify~0.12
 Sub::Name~0.19
 Test::Differences~0.64
-Test::More~1.302056
+Test::More~1.302059
 Test::NoWarnings~1.04
-Test::Tester~1.302056
+Test::Tester~1.302059
 Text::Diff~1.44
-Time::HiRes~1.9739
+Time::HiRes~1.9740
 Try::Tiny~0.27
 URI~1.71
 Unicode::Stringprep~1.105
