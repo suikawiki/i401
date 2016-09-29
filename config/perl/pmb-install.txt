@@ -13,7 +13,7 @@ Class::Singleton~1.5
 Data::Dumper~2.161
 DateTime~1.39
 DateTime::Locale~1.08
-DateTime::TimeZone~2.04
+DateTime::TimeZone~2.05
 Devel::StackTrace~2.01
 Digest::SHA~5.96
 Encode~2.86
