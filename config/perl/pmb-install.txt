@@ -20,7 +20,7 @@ Encode~2.86
 Errno~1.09
 Eval::Closure~0.14
 Exception::Class~1.40
-List::Util~1.45
+List::Util~1.46
 MIME::Base64~3.15
 MRO::Compat~0.12
 Module::Implementation~0.09
