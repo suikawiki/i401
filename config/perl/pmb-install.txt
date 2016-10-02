@@ -31,7 +31,7 @@ Package::Stash::XS~0.28
 Params::ValidationCompiler~0.13
 Path::Tiny~0.096
 Role::Tiny~2.000003
-Specio::Library::String~0.26
+Specio::Library::String~0.27
 Sub::Exporter::Progressive~0.001012
 Sub::Identify~0.12
 Sub::Name~0.19
