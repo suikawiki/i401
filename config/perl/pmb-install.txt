@@ -12,7 +12,7 @@ Class::Data::Inheritable~0.08
 Class::Singleton~1.5
 DateTime~1.39
 DateTime::Locale~1.09
-DateTime::TimeZone~2.05
+DateTime::TimeZone~2.06
 Devel::StackTrace~2.01
 Digest::SHA~5.96
 Encode~2.86
@@ -30,13 +30,14 @@ Package::Stash::XS~0.28
 Params::ValidationCompiler~0.13
 Path::Tiny~0.098
 Role::Tiny~2.000003
-Specio::Library::Numeric~0.30
-Sub::Exporter::Progressive~0.001012
+Specio::Declare~0.30
+Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.12
 Test::Differences~0.64
 Test::Fatal~0.014
+Test::More~1.302062
 Test::NoWarnings~1.04
-Test::Tester~1.302059
+Test::Tester~1.302062
 Text::Diff~1.44
 Time::HiRes~1.9740
 Try::Tiny~0.27
