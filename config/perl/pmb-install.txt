@@ -2,7 +2,8 @@ Algorithm::Diff~1.1903
 AnyEvent~7.13
 AnyEvent::HTTP~2.23
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Util
+AnyEvent::IRC::Client
+AnyEvent::Util
 B::Hooks::EndOfScope~0.21
 Canary::Stability~2012
 Capture::Tiny~0.44
@@ -14,7 +15,7 @@ DateTime::Locale~1.10
 DateTime::TimeZone~2.06
 Devel::StackTrace~2.01
 Digest::SHA~5.96
-Encode~2.86
+Encode~2.87
 Errno~1.09
 Eval::Closure~0.14
 Exception::Class~1.40
