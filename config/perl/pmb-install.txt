@@ -2,8 +2,8 @@ Algorithm::Diff~1.1903
 AnyEvent~7.13
 AnyEvent::HTTP~2.23
 AnyEvent::HTTPD~0.93
-AnyEvent::Handle
-AnyEvent::IRC::Client
+AnyEvent::IRC::Util
+AnyEvent::Util
 B::Hooks::EndOfScope~0.21
 Canary::Stability~2012
 Capture::Tiny~0.44
@@ -27,10 +27,10 @@ Net::SSLeay~1.78
 Object::Event~1.23
 Package::Stash~0.37
 Package::Stash::XS~0.28
-Params::ValidationCompiler~0.17
+Params::ValidationCompiler~0.18
 Path::Tiny~0.098
 Role::Tiny::With~2.000005
-Specio::Library::Numeric~0.31
+Specio::Declare~0.31
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.12
 Test::Differences~0.64
