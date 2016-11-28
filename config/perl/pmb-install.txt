@@ -28,8 +28,8 @@ Package::Stash~0.37
 Package::Stash::XS~0.28
 Params::ValidationCompiler~0.19
 Path::Tiny~0.098
-Role::Tiny::With~2.000005
-Specio::Library::Numeric~0.31
+Role::Tiny~2.000005
+Specio::Exporter~0.31
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.12
 Test::Differences~0.64
