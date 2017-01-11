@@ -29,13 +29,13 @@ Package::Stash::XS~0.28
 Params::ValidationCompiler~0.22
 Path::Tiny~0.098
 Role::Tiny~2.000005
-Specio::Library::String~0.31
+Specio::Library::Builtins~0.31
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.12
 Test::Differences~0.64
 Test::Fatal~0.014
 Test::NoWarnings~1.04
-Test::Tester~1.302073
+Test::Tester~1.302075
 Text::Diff~1.44
 Time::HiRes~1.9741
 Try::Tiny~0.28
