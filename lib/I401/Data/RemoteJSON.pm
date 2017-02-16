@@ -16,7 +16,7 @@ sub get ($$$;%) {
   }
 
   warn "<$url>...\n";
-  http_get $url, sub {
+  http_get $url, headers => {origin => $args{origin}}, sub {
     my ($data) = @_;
     my $json = json_bytes2perl $data;
     $CachedData->{$url} = {data => $json, time => time} if $json;

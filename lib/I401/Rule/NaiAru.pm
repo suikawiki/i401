@@ -15,7 +15,7 @@ my @suffix = ('', qw(
 sub get ($) {
   return ({
     privmsg => 1,
-    pattern => qr{(\w+)(?<!て)ない[?？]*$},
+    pattern => qr{(\w+)(?<!て)(?<!じゃ)ない[?？]*$},
     code => sub {
       my ($irc, $args) = @_;
       my $msg = "$1ある";
