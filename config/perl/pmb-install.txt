@@ -10,7 +10,7 @@ Carp~1.38
 Class::Data::Inheritable~0.08
 Class::Singleton~1.5
 DateTime~1.42
-DateTime::Locale~1.12
+DateTime::Locale~1.14
 DateTime::TimeZone~2.10
 Devel::StackTrace~2.02
 Digest::SHA~5.96
@@ -34,7 +34,6 @@ Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.12
 Test::Differences~0.64
 Test::Fatal~0.014
-Test::More~1.302078
 Test::NoWarnings~1.04
 Test::Tester~1.302078
 Text::Diff~1.44
