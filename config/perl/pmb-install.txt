@@ -2,8 +2,8 @@ Algorithm::Diff~1.1903
 AnyEvent~7.13
 AnyEvent::HTTP~2.23
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Client
-AnyEvent::Socket
+AnyEvent::IRC::Util
+AnyEvent::Util
 B::Hooks::EndOfScope~0.21
 Canary::Stability~2012
 Capture::Tiny~0.46
@@ -43,6 +43,7 @@ Sub::Identify~0.14
 TAP::Harness::Env~3.39
 Test::Differences~0.64
 Test::Fatal~0.014
+Test::More~1.302083
 Test::NoWarnings~1.04
 Test::Tester~1.302083
 Text::Diff~1.44
