@@ -36,8 +36,8 @@ Package::Stash~0.37
 Package::Stash::XS~0.28
 Params::ValidationCompiler~0.24
 Path::Tiny~0.104
-Role::Tiny::With~2.000005
-Specio::Exporter~0.36
+Role::Tiny~2.000005
+Specio::Declare~0.37
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 TAP::Harness::Env~3.39
