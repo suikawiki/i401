@@ -2,7 +2,7 @@ Algorithm::Diff~1.1903
 AnyEvent~7.14
 AnyEvent::HTTP~2.23
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Client
+AnyEvent::IRC::Util
 B::Hooks::EndOfScope~0.21
 Canary::Stability~2012
 Capture::Tiny~0.46
