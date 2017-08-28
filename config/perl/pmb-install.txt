@@ -43,6 +43,7 @@ Sub::Quote~2.004000
 TAP::Harness::Env~3.39
 Test::Differences~0.64
 Test::Fatal~0.014
+Test::More~1.302086
 Test::NoWarnings~1.04
 Test::Tester~1.302086
 Text::Diff~1.45
