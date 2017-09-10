@@ -36,14 +36,13 @@ Package::Stash::XS~0.28
 Params::ValidationCompiler~0.24
 Path::Tiny~0.104
 Role::Tiny~2.000005
-Specio::Library::Numeric~0.40
+Specio::Library::Builtins~0.40
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.004000
 TAP::Harness::Env~3.39
 Test::Differences~0.64
 Test::Fatal~0.014
-Test::More~1.302086
 Test::NoWarnings~1.04
 Test::Tester~1.302086
 Text::Diff~1.45
