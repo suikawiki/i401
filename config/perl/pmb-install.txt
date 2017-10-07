@@ -14,8 +14,8 @@ DateTime~1.44
 DateTime::Locale~1.16
 DateTime::TimeZone~2.13
 Devel::StackTrace~2.02
-Digest::SHA~5.97
-Encode~2.92
+Digest::SHA~5.98
+Encode~2.93
 Errno~1.09
 Eval::Closure~0.14
 Exception::Class~1.43
