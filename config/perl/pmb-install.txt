@@ -2,7 +2,7 @@ Algorithm::Diff~1.1903
 AnyEvent~7.14
 AnyEvent::HTTP~2.23
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Client
+AnyEvent::IRC::Util
 B::Hooks::EndOfScope~0.21
 Canary::Stability~2012
 Capture::Tiny~0.46
@@ -11,8 +11,8 @@ Class::Data::Inheritable~0.08
 Class::Inspector~1.32
 Class::Singleton~1.5
 DateTime~1.44
-DateTime::Locale~1.16
-DateTime::TimeZone~2.14
+DateTime::Locale~1.17
+DateTime::TimeZone~2.15
 Devel::StackTrace~2.02
 Digest::SHA~5.98
 Encode~2.93
@@ -35,14 +35,15 @@ Package::Stash~0.37
 Package::Stash::XS~0.28
 Params::ValidationCompiler~0.24
 Path::Tiny~0.104
-Role::Tiny::With~2.000005
-Specio::Library::String~0.40
+Role::Tiny~2.000005
+Specio::Declare~0.42
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.004000
 TAP::Harness::Env~3.39
 Test::Differences~0.64
 Test::Fatal~0.014
+Test::More~1.302106
 Test::NoWarnings~1.04
 Test::Tester~1.302106
 Text::Diff~1.45
@@ -50,7 +51,7 @@ Time::HiRes~1.9746
 Try::Tiny~0.28
 URI~1.72
 Unicode::Stringprep~1.105
-Variable::Magic~0.61
+Variable::Magic~0.62
 common::sense~3.74
 namespace::autoclean~0.28
 namespace::clean~0.27
