@@ -15,7 +15,7 @@ DateTime::Locale~1.17
 DateTime::TimeZone~2.17
 Devel::StackTrace~2.03
 Digest::SHA~6.01
-Encode~2.94
+Encode~2.95
 Errno~1.09
 Eval::Closure~0.14
 Exception::Class~1.44
@@ -35,7 +35,7 @@ Package::Stash~0.37
 Package::Stash::XS~0.28
 Params::ValidationCompiler~0.26
 Path::Tiny~0.104
-Role::Tiny~2.000006
+Role::Tiny::With~2.000006
 Specio::Exporter~0.42
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
@@ -43,6 +43,7 @@ Sub::Quote~2.005000
 TAP::Harness::Env~3.39
 Test::Differences~0.64
 Test::Fatal~0.014
+Test::More~1.302122
 Test::NoWarnings~1.04
 Test::Tester~1.302122
 Text::Diff~1.45
