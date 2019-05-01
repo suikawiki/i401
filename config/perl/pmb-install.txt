@@ -3,6 +3,7 @@ AnyEvent~7.15
 AnyEvent::HTTP~2.24
 AnyEvent::HTTPD~0.93
 AnyEvent::IRC::Client
+AnyEvent::Socket
 B::Hooks::EndOfScope~0.24
 Canary::Stability~2013
 Capture::Tiny~0.48
@@ -38,7 +39,6 @@ Sub::Identify~0.14
 Sub::Quote~2.006003
 Test::Differences~0.67
 Test::Fatal~0.014
-Test::More~1.302164
 Test::NoWarnings~1.04
 Test::Tester~1.302164
 Text::Diff~1.45
