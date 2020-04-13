@@ -2,7 +2,6 @@ Algorithm::Diff~1.1903
 AnyEvent~7.17
 AnyEvent::HTTP~2.24
 AnyEvent::HTTPD~0.93
-AnyEvent::Handle
 AnyEvent::IRC::Client
 B::Hooks::EndOfScope~0.24
 Canary::Stability~2013
@@ -22,7 +21,7 @@ Eval::Closure~0.14
 Exception::Class~1.44
 File::ShareDir~1.116
 File::ShareDir::Install~0.13
-List::Util~1.54
+List::Util~1.55
 MIME::Base64~3.15
 MRO::Compat~0.13
 Module::Implementation~0.09
@@ -32,15 +31,15 @@ Package::Stash~0.38
 Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
 Path::Tiny~0.112
-Role::Tiny::With~2.001004
-Specio::Library::Numeric~0.46
+Role::Tiny~2.001004
+Specio::Library::String~0.46
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
 Test::Differences~0.67
 Test::Fatal~0.014
 Test::NoWarnings~1.04
-Test::Tester~1.302172
+Test::Tester~1.302174
 Text::Diff~1.45
 Time::HiRes~1.9760
 Try::Tiny~0.30
@@ -48,6 +47,6 @@ URI~1.76
 Unicode::Stringprep~1.105
 Variable::Magic~0.62
 XString~0.002
-common::sense~3.74
+common::sense~3.75
 namespace::autoclean~0.29
 namespace::clean~0.27
