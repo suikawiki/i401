@@ -1,6 +1,6 @@
 Algorithm::Diff~1.1903
 AnyEvent~7.17
-AnyEvent::HTTP~2.24
+AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
 AnyEvent::IRC::Client
 B::Hooks::EndOfScope~0.24
@@ -12,7 +12,7 @@ Class::Inspector~1.36
 Class::Singleton~1.5
 DateTime~1.52
 DateTime::Locale~1.25
-DateTime::TimeZone~2.38
+DateTime::TimeZone~2.39
 Devel::StackTrace~2.04
 Digest::SHA~6.02
 Encode~3.05
@@ -30,16 +30,17 @@ Object::Event~1.23
 Package::Stash~0.38
 Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
-Path::Tiny~0.112
+Path::Tiny~0.114
 Role::Tiny~2.001004
-Specio::Library::String~0.46
+Specio::Library::Builtins~0.46
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
 Test::Differences~0.67
 Test::Fatal~0.014
+Test::More~1.302175
 Test::NoWarnings~1.04
-Test::Tester~1.302174
+Test::Tester~1.302175
 Text::Diff~1.45
 Time::HiRes~1.9760
 Try::Tiny~0.30
