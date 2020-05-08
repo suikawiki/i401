@@ -2,7 +2,7 @@ Algorithm::Diff~1.1903
 AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Client
+AnyEvent::IRC::Util
 B::Hooks::EndOfScope~0.24
 Canary::Stability~2013
 Capture::Tiny~0.48
@@ -15,7 +15,7 @@ DateTime::Locale~1.25
 DateTime::TimeZone~2.39
 Devel::StackTrace~2.04
 Digest::SHA~6.02
-Encode~3.05
+Encode~3.06
 Errno~1.09
 Eval::Closure~0.14
 Exception::Class~1.44
@@ -32,13 +32,12 @@ Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
 Path::Tiny~0.114
 Role::Tiny~2.001004
-Specio::Library::Builtins~0.46
+Specio::Exporter~0.46
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
 Test::Differences~0.67
 Test::Fatal~0.014
-Test::More~1.302175
 Test::NoWarnings~1.04
 Test::Tester~1.302175
 Text::Diff~1.45
