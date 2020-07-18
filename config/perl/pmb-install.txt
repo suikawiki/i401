@@ -32,7 +32,7 @@ Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
 Path::Tiny~0.114
 Role::Tiny::With~2.001004
-Specio::Library::String~0.46
+Specio::Library::Builtins~0.46
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
