@@ -5,6 +5,7 @@ clean: clean-webua-oauth clean-kyuureki
 WGET = wget
 CURL = curl
 GIT = git
+PERL = ./perl
 
 updatenightly: local/bin/pmbp.pl
 	#$(CURL) https://gist.githubusercontent.com/motemen/667573/raw/git-submodule-track | sh
