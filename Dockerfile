@@ -14,6 +14,7 @@ RUN wget https://cpan.metacpan.org/`curl -f -L https://raw.githubusercontent.com
     rm -fr perl-*
 
 ADD Makefile /app/
+ADD config/ /app/config/
 ADD lib/ /app/lib/
 ADD modules/ /app/modules/
 
