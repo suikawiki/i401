@@ -1,22 +1,43 @@
-git:
-  submodules: false
-language: perl
-perl:
-  - "5.24"
-  - "5.14"
-  - "5.8"
-before_install: git submodule update --init
-install: "make test-deps"
-script: "make test"
-notifications:
-  email:
-    - wakaba@suikawiki.org
-  irc:
-    channels:
-      - "ircs://irc.suikawiki.org:6697#mechanize"
-    use_notice: true
-env:
-  global:
-    secure: "E2Z3rWaoqzR/IB0Jf/XJAyv84wUOzwz0GnSJZfqfKYL/nJaSMPHjrQE/YHhQMNKlPoR1YWD7J31l7AUTp4Y+jN/byTkKnm4mDCz/SJ+O+7tB7XiP/lNdGSjQSlo1ElgmC5A8cBRCHB8gW8uAOg4QIvQLVYqUPYCifBUsqwNavZE="
-after_success:
-  - curl https://gist.githubusercontent.com/wakaba/9970857/raw/travis-merger.pl | perl
+{
+   "before_install" : "true",
+   "env" : {
+      "global" : {
+         "secure" : "a1hiiRzqz77LJ0ZqU3yIjXADTRCdTZDj/3jQSGm1\u002BLPk3EoJGfMp2rX82GnEbsGXjCSSjc3kTlITpH00VvLFwgzVIcE8fpIxjE\u002BSAsEz/Virg8h7mVNM\u002BmbZTeajl/ocWZ\u002BcWHYVjMvDuvcb3OgMPMSJujx1QJ3iZqbSIwV16n8="
+      }
+   },
+   "git" : {
+      "submodules" : false
+   },
+   "install" : "make test-deps",
+   "jobs" : {
+      "include" : [
+         {
+            "stage" : "test"
+         },
+         {
+            "before_install" : "true",
+            "install" : "true",
+            "script" : "curl -f https://gist.githubusercontent.com/wakaba/ab553f86cd017e0cb28c6dbb5364b009/raw/travis-merge-job.pl | perl",
+            "stage" : "merge"
+         }
+      ]
+   },
+   "language" : "perl",
+   "notifications" : {
+      "email" : [
+         "wakaba@suikawiki.org"
+      ],
+      "irc" : {
+         "channels" : [
+            "ircs://irc.suikawiki.org:6697#mechanize"
+         ],
+         "use_notice" : true
+      }
+   },
+   "perl" : [
+      "5.32",
+      "5.14",
+      "5.8"
+   ],
+   "script" : "make test"
+}
