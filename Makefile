@@ -17,6 +17,7 @@ updatenightly: local/bin/pmbp.pl
 ## ------ Setup ------
 
 deps: git-submodules pmbp-install webua-oauth kyuureki
+deps-docker:         pmbp-install webua-oauth kyuureki
 
 git-submodules:
 	$(GIT) submodule update --init
