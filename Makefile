@@ -8,7 +8,7 @@ GIT = git
 PERL = ./perl
 
 updatenightly: local/bin/pmbp.pl
-	#$(CURL) https://gist.githubusercontent.com/motemen/667573/raw/git-submodule-track | sh
+	$(CURL) -s -S -L https://gist.githubusercontent.com/wakaba/34a71d3137a52abb562d/raw/gistfile1.txt | sh
 	$(GIT) add modules
 	perl local/bin/pmbp.pl --update
 	$(GIT) add config
