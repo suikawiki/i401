@@ -16,7 +16,6 @@ DateTime::TimeZone~2.39
 Devel::StackTrace~2.04
 Digest::SHA~6.02
 Encode~3.07
-Errno~1.09
 Eval::Closure~0.14
 Exception::Class~1.44
 File::ShareDir~1.116
