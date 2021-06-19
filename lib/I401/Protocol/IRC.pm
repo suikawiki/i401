@@ -219,8 +219,11 @@ sub get_channel_users {
 
 sub send_join ($$) {
   my ($self, $channel) = @_;
-  $self->client->send_srv (JOIN => encode_web_utf8 $channel)
-      unless $self->{current_channels}->{$channel};
+  return if $self->{current_channels}->{$channel};
+  my $pwd = $self->config->{channel_passwords}->{$channel};
+  $self->client->send_srv
+      (JOIN => (encode_web_utf8 $channel),
+               (defined $pwd ? encode_web_utf8 $pwd : undef));
 } # send_join
 
 sub send_notice ($$$) {
@@ -260,3 +263,14 @@ sub send_privmsg ($$$) {
 } # send_privmsg
 
 1;
+
+=head1 LICENSE
+
+Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2014-2021 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

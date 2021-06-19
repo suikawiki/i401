@@ -11,6 +11,9 @@ my $irc = I401::Main->new_from_config({
     default_channels => ['#test'],
     http_hostname => 'localhost',
     http_port => 4979,
+    channel_passwords => {
+      '#test' => 'testpassword',
+    },
 });
 
 for (
@@ -23,3 +26,5 @@ for (
 }
 
 $irc->run;
+
+## License: Public Domain.
