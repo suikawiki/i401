@@ -5,6 +5,7 @@ use Web::Encoding;
 use AnyEvent;
 use AnyEvent::IRC::Client;
 use AnyEvent::IRC::Util qw(decode_ctcp);
+use JSON::PS;
 
 sub new_from_i401_and_config_and_logger ($$$) {
   return bless {i401 => $_[1], config => $_[2], logger => $_[3]}, $_[0];
@@ -49,8 +50,7 @@ sub client {
         });
         $client->reg_cb(registered => sub {
             $self->log('Registered');
-            $client->send_srv(JOIN => encode_web_utf8 $_)
-                for @{$config->{default_channels} or []};
+            $self->send_join ($_) for @{$config->{default_channels} or []};
             $client->enable_ping (60);
         });
 
@@ -86,9 +86,9 @@ sub client {
         };
 
         $client->reg_cb(irc_invite => sub {
-            my ($client, $msg) = @_;
-            my $channel = $msg->{params}->[1]; # no decode
-            $client->send_srv(JOIN => $channel); # no encode
+          my ($client, $msg) = @_;
+          my $channel = decode_web_utf8 $msg->{params}->[1];
+          $self->send_join ($channel);
         });
 
         $client->reg_cb(join => sub {
@@ -105,9 +105,8 @@ sub client {
             if ($client->is_my_nick ($kicked_nick)) { # $is_myself is wrong
                 $self->log ("Kicked by $kicker_nick ($msg)");
                 my $timer; $timer = AE::timer 10, 0, sub {
-                    $self->client->send_srv(JOIN => encode_web_utf8 $channel)
-                        unless $self->{current_channels}->{$channel};
-                    undef $timer;
+                  $self->send_join ($channel);
+                  undef $timer;
                 };
             }
         });
@@ -121,6 +120,12 @@ sub client {
             }
         });
 
+        $client->reg_cb (error => sub {
+          my ($client, $code, $msg, $ircmsg) = @_;
+          $ircmsg = perl2json_chars $ircmsg;
+          $self->log ("Error |$code|, |$msg|, |$ircmsg|");
+        });
+        
         $client->reg_cb(irc_privmsg => sub {
             my (undef, $msg) = @_;
             my ($trail, $ctcp) = decode_ctcp($msg->{params}->[-1]);
@@ -212,13 +217,18 @@ sub get_channel_users {
     return [ grep { not $client->is_my_nick($_) } keys %$user_mode ];
 }
 
+sub send_join ($$) {
+  my ($self, $channel) = @_;
+  $self->client->send_srv (JOIN => encode_web_utf8 $channel)
+      unless $self->{current_channels}->{$channel};
+} # send_join
+
 sub send_notice ($$$) {
   my ($self, $channel, $text) = @_;
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
   for my $text (split /\x0D?\x0A/, $text) {
-    $self->client->send_srv(JOIN => encode_web_utf8 $channel)
-        unless $self->{current_channels}->{$channel};
+    $self->send_join ($channel);
     my $charset = $self->get_channel_charset($channel);
     my $max = $self->config->{max_length} || 200;
       while (length $text) {
@@ -236,8 +246,7 @@ sub send_privmsg ($$$) {
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
   for my $text (split /\x0D?\x0A/, $text) {
-    $self->client->send_srv(JOIN => encode_web_utf8 $channel)
-        unless $self->{current_channels}->{$channel};
+    $self->send_join ($channel);
     my $charset = $self->get_channel_charset($channel);
     my $max = $self->config->{max_length} || 200;
     while (length $text) {
