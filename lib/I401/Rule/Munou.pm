@@ -5,6 +5,7 @@ use utf8;
 use Web::Encoding;
 use AnyEvent;
 use AnyEvent::Util qw(run_cmd);
+use Path::Tiny;
 
 my $RepoURL;
 my $FileName;
@@ -14,7 +15,7 @@ sub set_source ($$$) {
   my ($class, $repo_url, $file_name, $temp_d) = @_;
   $RepoURL = $repo_url;
   $FileName = $file_name;
-  $TempD = $temp_d; # XXX This is a Path::Class directory
+  $TempD = path ($temp_d); # $temp_d can be a Path::Class for backcompat
 }
 
 my $Data = {};
@@ -79,3 +80,14 @@ sub get ($) {
 }
 
 1;
+
+=head1 LICENSE
+
+Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2014-2021 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
