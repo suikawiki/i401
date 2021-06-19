@@ -16,6 +16,16 @@
             },
             {
                "run" : {
+                  "command" : "make deps"
+               }
+            },
+            {
+               "run" : {
+                  "command" : "rm -fr modules/*/bin modules/*/.git modules/*/t modules/*/t_deps"
+               }
+            },
+            {
+               "run" : {
                   "command" : "docker info"
                }
             },
@@ -174,7 +184,7 @@
          "triggers" : [
             {
                "schedule" : {
-                  "cron" : "9 18 * * *",
+                  "cron" : "3 20 * * *",
                   "filters" : {
                      "branches" : {
                         "only" : [
