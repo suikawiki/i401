@@ -51,7 +51,7 @@
             },
             {
                "run" : {
-                  "command" : "curl -f http://localhost:5511/robots.txt"
+                  "command" : "curl -f http://0:5511/robots.txt || (docker logs server && false)"
                }
             },
             {
@@ -184,7 +184,7 @@
          "triggers" : [
             {
                "schedule" : {
-                  "cron" : "3 20 * * *",
+                  "cron" : "28 20 * * *",
                   "filters" : {
                      "branches" : {
                         "only" : [
