@@ -1,7 +1,7 @@
 i401
 ~~~~
 
-An IRC bot with Web API.
+An IRC / Slack bot with Web API.
 
 * Usage
 
@@ -16,7 +16,7 @@ Wakaba <wakaba@suikawiki.org>.
 
 Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
 
-Copyright 2014 Wakaba <wakaba@suikawiki.org>.
+Copyright 2014-2021 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

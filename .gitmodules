@@ -8,15 +8,15 @@
 	track = master
 [submodule "modules/promise"]
 	path = modules/promise
-	url = git://github.com/wakaba/perl-promise
+	url = https://github.com/wakaba/perl-promise
 	track = master
 [submodule "modules/web-url"]
 	path = modules/web-url
-	url = git://github.com/manakai/perl-web-url
+	url = https://github.com/manakai/perl-web-url
 	track = master
 [submodule "modules/web-datetime"]
 	path = modules/web-datetime
-	url = git://github.com/manakai/perl-web-datetime
+	url = https://github.com/manakai/perl-web-datetime
 	track = master
 [submodule "modules/json-ps"]
 	path = modules/json-ps

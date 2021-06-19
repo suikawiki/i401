@@ -5,12 +5,14 @@ clean: clean-webua-oauth clean-kyuureki
 WGET = wget
 CURL = curl
 GIT = git
+PERL = ./perl
 
 updatenightly: local/bin/pmbp.pl
 	#$(CURL) https://gist.githubusercontent.com/motemen/667573/raw/git-submodule-track | sh
 	$(GIT) add modules
 	perl local/bin/pmbp.pl --update
 	$(GIT) add config
+	$(CURL) -sSLf https://raw.githubusercontent.com/wakaba/ciconfig/master/ciconfig | RUN_GIT=1 REMOVE_UNUSED=1 perl
 
 ## ------ Setup ------
 
@@ -43,7 +45,7 @@ clean-webua-oauth:
 local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm: local/bin/pmbp.pl
 	mkdir -p local/perl-latest/pm/lib/perl5/Web/UserAgent
 	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-web-useragent-functions/master/lib/Web/UserAgent/OAuth.pm
-	perl local/bin/pmbp.pl --install-module Digest::SHA
+	$(PERL) local/bin/pmbp.pl --install-module Digest::SHA
 
 ## ------ Tests ------
 
