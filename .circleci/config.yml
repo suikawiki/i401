@@ -347,11 +347,11 @@
          "triggers" : [
             {
                "schedule" : {
-                  "cron" : "55 14 * * *",
+                  "cron" : "32 21 * * *",
                   "filters" : {
                      "branches" : {
                         "only" : [
-                           "staging"
+                           "master"
                         ]
                      }
                   }
