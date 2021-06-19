@@ -16,6 +16,26 @@
             },
             {
                "run" : {
+                  "command" : "make deps"
+               }
+            },
+            {
+               "run" : {
+                  "command" : "rm -fr modules/*/bin modules/*/.git modules/*/t modules/*/t_deps"
+               }
+            },
+            {
+               "run" : {
+                  "command" : "docker info"
+               }
+            },
+            {
+               "run" : {
+                  "command" : "docker build -t quay.io/wakaba/i401 ."
+               }
+            },
+            {
+               "run" : {
                   "command" : "make test-deps"
                }
             },
@@ -25,8 +45,33 @@
                }
             },
             {
+               "run" : {
+                  "command" : "docker run --name server -d -p 5511:4979 -v `pwd`/example:/app/example quay.io/wakaba/i401 /app/perl /app/example/bot.pl; sleep 10"
+               }
+            },
+            {
+               "run" : {
+                  "command" : "curl -f http://0:5511/robots.txt || (docker logs server && false)"
+               }
+            },
+            {
+               "run" : {
+                  "command" : "docker logs server"
+               }
+            },
+            {
                "store_artifacts" : {
                   "path" : "/tmp/circle-artifacts/build"
+               }
+            },
+            {
+               "deploy" : {
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Adocker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io || docker login -u $DOCKER_USER -p $DOCKER_PASS quay.io\u000Afi"
+               }
+            },
+            {
+               "deploy" : {
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Adocker push quay.io/wakaba/i401 && curl -sSLf $BWALL_URL -X POST\u000Afi"
                }
             }
          ]
@@ -139,7 +184,7 @@
          "triggers" : [
             {
                "schedule" : {
-                  "cron" : "57 13 * * *",
+                  "cron" : "58 20 * * *",
                   "filters" : {
                      "branches" : {
                         "only" : [

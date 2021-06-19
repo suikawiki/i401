@@ -17,20 +17,23 @@ updatenightly: local/bin/pmbp.pl
 ## ------ Setup ------
 
 deps: git-submodules pmbp-install webua-oauth kyuureki
+deps-docker:         pmbp-install webua-oauth kyuureki
 
 git-submodules:
 	$(GIT) submodule update --init
+
+PMBP_OPTIONS=
 
 local/bin/pmbp.pl:
 	mkdir -p local/bin
 	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-setupenv/master/bin/pmbp.pl
 pmbp-upgrade: local/bin/pmbp.pl
-	perl local/bin/pmbp.pl --update-pmbp-pl
+	perl local/bin/pmbp.pl $(PMBP_OPTIONS) --update-pmbp-pl
 pmbp-update: git-submodules pmbp-upgrade
-	perl local/bin/pmbp.pl --update \
+	perl local/bin/pmbp.pl $(PMBP_OPTIONS) --update \
 	    --write-makefile-pl cpanfile
 pmbp-install: pmbp-upgrade
-	perl local/bin/pmbp.pl --install
+	perl local/bin/pmbp.pl $(PMBP_OPTIONS) --install
 
 kyuureki: local/perl-latest/pm/lib/perl5/Kyuureki.pm
 clean-kyuureki:
@@ -45,7 +48,7 @@ clean-webua-oauth:
 local/perl-latest/pm/lib/perl5/Web/UserAgent/OAuth.pm: local/bin/pmbp.pl
 	mkdir -p local/perl-latest/pm/lib/perl5/Web/UserAgent
 	$(WGET) -O $@ https://raw.githubusercontent.com/wakaba/perl-web-useragent-functions/master/lib/Web/UserAgent/OAuth.pm
-	$(PERL) local/bin/pmbp.pl --install-module Digest::SHA
+	$(PERL) local/bin/pmbp.pl $(PMBP_OPTIONS) --install-module Digest::SHA
 
 ## ------ Tests ------
 

@@ -1,6 +1,16 @@
 {
   "circleci": {
+    "docker-build": "quay.io/wakaba/i401",
+    "build": [
+      "make deps",
+      "rm -fr modules/*/bin modules/*/.git modules/*/t modules/*/t_deps"
+    ],
     "pmbp": true,
+    "tests": [
+      "docker run --name server -d -p 5511:4979 -v `pwd`/example:/app/example quay.io/wakaba/i401 /app/perl /app/example/bot.pl; sleep 10",
+      "curl -f http://0:5511/robots.txt || (docker logs server && false)",
+      "docker logs server"
+    ],
     "merger": true,
     "gaa": true
   },

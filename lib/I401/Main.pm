@@ -91,6 +91,11 @@ sub listen {
             my ($httpd, $req) = @_;
             $self->log(sprintf '%s %s %s', $req->client_host, $req->method, $req->url);
             my $path = $req->url->path;
+
+            if ($path eq '/robots.txt') {
+              return $req->respond ([200, 'OK', {}, "User-agent: *\nDisallow: /"]);
+            }
+            
             unless ($path =~ m{\A/(notice|privmsg)\z}) {
                 return $req->respond([400, 'Not found', {}, '404 Not found']);
             }
