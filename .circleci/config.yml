@@ -46,7 +46,7 @@
             },
             {
                "run" : {
-                  "command" : "docker run --name server -d -p 5511:4979 quay.io/wakaba/i401 /app/perl /app/example/bot.pl; sleep 10"
+                  "command" : "docker run --name server -d -p 5511:4979 -v `pwd`/example:/app/example quay.io/wakaba/i401 /app/perl /app/example/bot.pl; sleep 10"
                }
             },
             {
@@ -184,7 +184,7 @@
          "triggers" : [
             {
                "schedule" : {
-                  "cron" : "28 20 * * *",
+                  "cron" : "58 20 * * *",
                   "filters" : {
                      "branches" : {
                         "only" : [
