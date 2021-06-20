@@ -26,7 +26,7 @@ sub start_updater ($) {
   $Updater = AE::timer 1, 60*(60 + 100 * rand 1), sub {
     warn __PACKAGE__ . ": Check for updates...\n";
     if (defined $RepoURL and defined $FileName and defined $TempD) {
-      my $temp_repo_d = $TempD->subdir ('munou-data-repo');
+      my $temp_repo_d = $TempD->child ('munou-data-repo');
       (run_cmd ['git', 'clone', $RepoURL, $temp_repo_d])->cb (sub {
         (run_cmd "cd \Q$temp_repo_d\E && git pull")->cb (sub {
           my $f = $temp_repo_d->file ($FileName);
