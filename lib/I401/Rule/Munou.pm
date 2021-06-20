@@ -29,7 +29,7 @@ sub start_updater ($) {
       my $temp_repo_d = $TempD->child ('munou-data-repo');
       (run_cmd ['git', 'clone', $RepoURL, $temp_repo_d])->cb (sub {
         (run_cmd "cd \Q$temp_repo_d\E && git pull")->cb (sub {
-          my $f = $temp_repo_d->file ($FileName);
+          my $f = $temp_repo_d->child ($FileName);
           if (-f $f) {
             $Data = {};
             for (grep { length and not /^#/ } map { s/^\s+//; $_ } split /\x0D?\x0A/, decode_web_utf8 scalar $f->slurp) {
