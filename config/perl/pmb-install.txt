@@ -12,7 +12,7 @@ Class::Inspector~1.36
 Class::Singleton~1.6
 DateTime~1.54
 DateTime::Locale~1.32
-DateTime::TimeZone~2.50
+DateTime::TimeZone~2.51
 Devel::StackTrace~2.04
 Digest::SHA~6.02
 Eval::Closure~0.14
