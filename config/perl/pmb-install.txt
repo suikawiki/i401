@@ -29,7 +29,7 @@ Package::Stash~0.39
 Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
 Path::Tiny~0.120
-Role::Tiny::With~2.002004
+Role::Tiny~2.002004
 Socket~2.032
 Specio::Library::Builtins~0.47
 Sub::Exporter::Progressive~0.001013
