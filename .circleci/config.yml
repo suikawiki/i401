@@ -347,7 +347,7 @@
          "triggers" : [
             {
                "schedule" : {
-                  "cron" : "32 21 * * *",
+                  "cron" : "14 21 * * *",
                   "filters" : {
                      "branches" : {
                         "only" : [
