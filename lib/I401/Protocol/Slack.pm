@@ -21,7 +21,7 @@ sub log ($$;%) {
 
 sub connect ($) {
   my $self = $_[0];
-  my $url1 = Web::URL->parse_string (q<https://slack.com/api/rtm.start>);
+  my $url1 = Web::URL->parse_string (q<https://slack.com/api/rtm.connect>);
   my $http = $self->{http} = Web::Transport::ConnectionClient->new_from_url ($url1);
   $http->request (url => $url1, params => {
     token => $self->config->{slack_token},
