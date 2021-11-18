@@ -31,7 +31,7 @@ Params::ValidationCompiler~0.30
 Path::Tiny~0.120
 Role::Tiny~2.002004
 Socket~2.032
-Specio::Declare~0.47
+Specio::Exporter~0.47
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
