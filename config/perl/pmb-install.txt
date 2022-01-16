@@ -2,6 +2,7 @@ Algorithm::Diff~1.201
 AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
+AnyEvent::Handle
 AnyEvent::IRC::Client
 B::Hooks::EndOfScope~0.25
 Canary::Stability~2013
@@ -28,7 +29,7 @@ Object::Event~1.23
 Package::Stash~0.39
 Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
-Path::Tiny~0.120
+Path::Tiny~0.122
 Role::Tiny~2.002004
 Socket~2.032
 Specio::Declare~0.47
