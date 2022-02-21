@@ -2,9 +2,8 @@ Algorithm::Diff~1.201
 AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Util
-AnyEvent::Socket
-B::Hooks::EndOfScope~0.25
+AnyEvent::IRC::Client
+B::Hooks::EndOfScope~0.26
 Canary::Stability~2013
 Capture::Tiny~0.48
 Carp~1.50
@@ -26,7 +25,7 @@ Math::BigInt~1.999829
 Module::Implementation~0.09
 Net::SSLeay~1.92
 Object::Event~1.23
-Package::Stash~0.39
+Package::Stash~0.40
 Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
 Path::Tiny~0.122
