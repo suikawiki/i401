@@ -21,7 +21,7 @@ File::ShareDir~1.118
 File::ShareDir::Install~0.13
 MIME::Base64~3.16
 MRO::Compat~0.15
-Math::BigInt~1.999829
+Math::BigInt~1.999830
 Module::Implementation~0.09
 Net::SSLeay~1.92
 Object::Event~1.23
@@ -29,9 +29,9 @@ Package::Stash~0.40
 Package::Stash::XS~0.29
 Params::ValidationCompiler~0.30
 Path::Tiny~0.122
-Role::Tiny~2.002004
+Role::Tiny::With~2.002004
 Socket~2.032
-Specio::Library::String~0.47
+Specio::Declare~0.47
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
