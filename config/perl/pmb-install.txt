@@ -31,7 +31,7 @@ Params::ValidationCompiler~0.30
 Path::Tiny~0.122
 Role::Tiny~2.002004
 Socket~2.035
-Specio::Declare~0.48
+Specio::Exporter~0.48
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
@@ -42,7 +42,7 @@ Text::Diff~1.45
 Time::HiRes~1.9764
 Try::Tiny~0.31
 Types::Serialiser~1.01
-URI~5.10
+URI~5.11
 Variable::Magic~0.62
 XString~0.005
 common::sense~3.75
