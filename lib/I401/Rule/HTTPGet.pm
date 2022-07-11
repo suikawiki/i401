@@ -3,8 +3,9 @@ use strict;
 use warnings;
 use Time::HiRes qw(time);
 use Web::Encoding;
-use AnyEvent::HTTP;
 use AnyEvent::Util qw(run_cmd);
+
+use I401::Fetch;
 
 sub get {
     return ({
@@ -31,33 +32,36 @@ sub get {
 }
 
 sub process_default {
-    my ($class, $irc, $args, $url) = @_;
+  my ($class, $irc, $args, $url) = @_;
 
-    $irc->log("Get <$url>");
-    my $start_time = time;
-    http_get $url, sub {
-        my ($data, $headers) = @_;
-        $data = '' unless defined $data;
-        my $title = '';
-        my $charset = 'utf-8';
-        if (($headers->{'content-type'} || '') =~ /charset=(\S+)/) {
-            $charset = {'euc-jp' => 'euc-jp',
-                        'shift_jis' => 'windows-31j'}->{lc $1} || $charset;
-        }
-        if ($data =~ m{<title>(.*?)</title>}s) {
-            $title = decode_web_charset $charset, $1;
-        }
-        my $msg = sprintf '[%d %s, %s %.3f KB %.3f s] %s',
-            $headers->{Status},
-            (decode_web_utf8 $headers->{Reason}),
-            (defined $headers->{'content-type'}
-                 ? $headers->{'content-type'} : '(no Content-Type)'),
-            (length $data) / 1024,
-            time - $start_time,
-            $title;
-        $irc->send_notice($args->{channel}, $msg);
-    };
-}
+  $irc->log ("Get <$url>");
+  my $start_time = time;
+  I401::Fetch->get_by_url_string ($url)->catch (sub {
+    return $_[0];
+  })->then (sub {
+    my $res = $_[0];
+    my $data = $res->body_bytes // '';
+    
+    my $title = '';
+    my $charset = 'utf-8';
+    if (($res->header ('content-type') // '') =~ /charset=(\S+)/) {
+      $charset = $1;
+    } elsif ($data =~ m{<meta[^<>]*?charset=["']?([^<>"']+)["']?}i) {
+      $charset = $1;
+    }
+    if ($data =~ m{<title>(.*?)</title>}s) {
+      $title = decode_web_charset $charset, $1;
+    }
+    my $msg = sprintf '[%d %s, %s %.3f KB %.3f s] %s',
+        $res->status,
+        $res->status_text,
+        ($res->header ('content-type') // '(no Content-Type)'),
+        (length $data) / 1024,
+        time - $start_time,
+        $title;
+    $irc->send_notice($args->{channel}, $msg);
+  });
+} # process_default
 
 sub process_header {
     my ($class, $irc, $args, $url) = @_;
@@ -120,3 +124,18 @@ sub process_header_en {
 }
 
 1;
+
+=head1 AUTHOR
+
+Wakaba <wakaba@suikawiki.org>.
+
+=head1 LICENSE
+
+Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2014-2022 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
