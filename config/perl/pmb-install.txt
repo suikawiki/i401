@@ -28,7 +28,7 @@ Object::Event~1.23
 Package::Stash~0.40
 Package::Stash::XS~0.30
 Params::ValidationCompiler~0.30
-Path::Tiny~0.128
+Path::Tiny~0.130
 Role::Tiny~2.002004
 Scalar::Util~1.63
 Socket~2.036
