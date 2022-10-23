@@ -2,7 +2,7 @@ Algorithm::Diff~1.201
 AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Client
+AnyEvent::IRC::Util
 B::Hooks::EndOfScope~0.26
 Canary::Stability~2013
 Capture::Tiny~0.48
@@ -11,7 +11,7 @@ Class::Data::Inheritable~0.09
 Class::Inspector~1.36
 Class::Singleton~1.6
 DateTime~1.58
-DateTime::Locale~1.36
+DateTime::Locale~1.37
 DateTime::TimeZone~2.55
 Devel::StackTrace~2.04
 Digest::SHA~6.03
@@ -32,7 +32,7 @@ Path::Tiny~0.130
 Role::Tiny::With~2.002004
 Scalar::Util~1.63
 Socket~2.036
-Specio::Declare~0.48
+Specio::Library::String~0.48
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
