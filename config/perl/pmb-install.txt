@@ -33,7 +33,7 @@ Path::Tiny~0.142
 Role::Tiny~2.002004
 Scalar::Util~1.63
 Socket~2.036
-Specio::Library::Builtins~0.48
+Specio::Library::String~0.48
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006006
