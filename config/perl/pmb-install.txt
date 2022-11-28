@@ -3,7 +3,6 @@ AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
 AnyEvent::IRC::Util
-AnyEvent::Socket
 B::Hooks::EndOfScope~0.26
 Canary::Stability~2013
 Capture::Tiny~0.48
@@ -30,7 +29,7 @@ Package::Stash~0.40
 Package::Stash::XS~0.30
 Params::ValidationCompiler~0.30
 Path::Tiny~0.142
-Role::Tiny~2.002004
+Role::Tiny::With~2.002004
 Scalar::Util~1.63
 Socket~2.036
 Specio::Library::String~0.48
