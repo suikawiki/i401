@@ -3,7 +3,7 @@ AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
 AnyEvent::IRC::Util
-AnyEvent::Util
+AnyEvent::Socket
 B::Hooks::EndOfScope~0.26
 Canary::Stability~2013
 Capture::Tiny~0.48
@@ -36,7 +36,7 @@ Socket~2.036
 Specio::Exporter~0.48
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
-Sub::Quote~2.006006
+Sub::Quote~2.006008
 Test::Differences~0.69
 Test::Fatal~0.017
 Test::More~1.302191
