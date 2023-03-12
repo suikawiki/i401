@@ -2,8 +2,8 @@ Algorithm::Diff~1.201
 AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
+AnyEvent::Handle
 AnyEvent::IRC::Client
-AnyEvent::Socket
 B::Hooks::EndOfScope~0.26
 Canary::Stability~2013
 Capture::Tiny~0.48
@@ -30,10 +30,10 @@ Package::Stash~0.40
 Package::Stash::XS~0.30
 Params::ValidationCompiler~0.31
 Path::Tiny~0.144
-Role::Tiny~2.002004
+Role::Tiny::With~2.002004
 Scalar::Util~1.63
 Socket~2.036
-Specio::Library::Builtins~0.48
+Specio::Subs~0.48
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006008
