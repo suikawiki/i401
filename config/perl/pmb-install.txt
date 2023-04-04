@@ -2,7 +2,8 @@ Algorithm::Diff~1.201
 AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
-AnyEvent::IRC::Util
+AnyEvent::Handle
+AnyEvent::IRC::Client
 B::Hooks::EndOfScope~0.26
 Canary::Stability~2013
 Capture::Tiny~0.48
@@ -32,7 +33,7 @@ Path::Tiny~0.144
 Role::Tiny~2.002004
 Scalar::Util~1.63
 Socket~2.036
-Specio~0.48
+Specio::Exporter~0.48
 Sub::Exporter::Progressive~0.001013
 Sub::Identify~0.14
 Sub::Quote~2.006008
