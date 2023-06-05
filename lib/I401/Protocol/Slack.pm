@@ -146,9 +146,6 @@ sub send_privmsg ($$$;%) {
     $params->{thread_ts} = $raw->{ts};
     $params->{reply_broadcast} = 'true';
   }
-
-  use Data::Dumper;
-  warn Dumper $params;
   
   $self->{http}->request
       (method => 'POST',
@@ -167,6 +164,12 @@ sub wrap ($$$) {
     raw => $raw,
     user_id => $con->{user_id},
     connection_name => $con->config->{name},
+    id => (join '-',
+           'Slack',
+           $con->config->{name} // '',
+           $raw->{team},
+           $raw->{channel},
+           $raw->{ts}),
   }, $class;
 } # wrap
 
