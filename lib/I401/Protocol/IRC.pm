@@ -261,10 +261,16 @@ sub send_notice ($$$) {
   }
 } # send_notice
 
-sub send_privmsg ($$$) {
-  my ($self, $channel, $text) = @_;
+sub send_privmsg ($$$;%) {
+  my ($self, $channel, $text, %args) = @_;
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
+
+  if ($args{in_reply_to}) {
+    my $nick = $args{in_reply_to}->raw->{nick};
+    $text .= ' > ' . $nick;
+  }
+  
   for my $text (split /\x0D?\x0A/, $text) {
     $self->send_join ($channel);
     my $charset = $self->get_channel_charset($channel);

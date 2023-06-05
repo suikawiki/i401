@@ -65,18 +65,18 @@ sub process_by_rules {
       next unless $args->{message}->is_mentioned;
     }
     
-    my $pattern = defined $rule->{pattern} ? $_->{pattern} : qr/(?:)/;
+    my $pattern = defined $rule->{pattern} ? $rule->{pattern} : qr/(?:)/;
     next unless $args->{text} =~ /$pattern/;
     $rule->{code}->($self, $args); ## $1... of ^ available from |code|
   }
 } # process_by_rules
 
-sub send_notice ($$$) {
-  return $_[0]->protocol->send_notice ($_[1], $_[2]);
+sub send_notice ($$$;%) {
+  return shift->protocol->send_notice (@_);
 } # send_notice
 
-sub send_privmsg ($$$) {
-  return $_[0]->protocol->send_privmsg ($_[1], $_[2]);
+sub send_privmsg ($$$;%) {
+  return shift->protocol->send_privmsg (@_);
 } # send_privmsg
 
 sub listen {

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use JSON::PS;
 use Web::URL;
-use Web::Transport::ConnectionClient;
+use Web::Transport::BasicClient;
 use Web::Transport::WSClient;
 
 sub new_from_i401_and_config_and_logger ($$$) {
@@ -22,7 +22,7 @@ sub log ($$;%) {
 sub connect ($) {
   my $self = $_[0];
   my $url1 = Web::URL->parse_string (q<https://slack.com/api/rtm.connect>);
-  my $http = $self->{http} = Web::Transport::ConnectionClient->new_from_url ($url1);
+  my $http = $self->{http} = Web::Transport::BasicClient->new_from_url ($url1);
   $http->request (url => $url1, params => {
     token => $self->config->{slack_token},
   })->then (sub {
@@ -130,18 +130,30 @@ sub send_notice ($$$) {
                   text => $text});
 } # send_notice
 
-sub send_privmsg ($$$) {
-  my ($self, $channel, $text) = @_;
+sub send_privmsg ($$$;%) {
+  my ($self, $channel, $text, %args) = @_;
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
+
+  my $params = {token => $self->config->{slack_token},
+                as_user => 'false',
+                username => $self->config->{nick},
+                channel => $channel,
+                text => $text};
+  
+  if (defined $args{in_reply_to}) {
+    my $raw = $args{in_reply_to}->raw;
+    $params->{thread_ts} = $raw->{ts};
+    $params->{reply_broadcast} = 'true';
+  }
+
+  use Data::Dumper;
+  warn Dumper $params;
+  
   $self->{http}->request
       (method => 'POST',
        url => Web::URL->parse_string (q<https://slack.com/api/chat.postMessage>),
-       params => {token => $self->config->{slack_token},
-                  as_user => 'false',
-                  username => $self->config->{nick},
-                  channel => $channel,
-                  text => $text});
+       params => $params);
 } # send_privmsg
 
 package I401::Protocol::Slack::Message;
