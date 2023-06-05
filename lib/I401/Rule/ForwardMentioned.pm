@@ -21,6 +21,7 @@ sub get ($) {
         protocol => $m->protocol,
         connection_name => $m->connection_name,
         message => $m->raw,
+        id => $m->id,
       };
 
       return I401::Fetch->post_data ($URL, $data);

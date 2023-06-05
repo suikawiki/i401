@@ -216,6 +216,7 @@ package I401::Main::Message;
 
 sub connection_name ($) { $_[0]->{connection_name} }
 sub raw ($) { $_[0]->{raw} }
+sub id ($) { $_[0]->{id} }
 
 sub is_mentioned ($) { 0 }
 

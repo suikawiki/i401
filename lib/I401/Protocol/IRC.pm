@@ -287,6 +287,7 @@ sub send_privmsg ($$$;%) {
 
 package I401::Protocol::IRC::Message;
 push our @ISA, qw(I401::Main::Message);
+use Time::HiRes qw(time);
 
 sub protocol ($) { 'IRC' }
 
@@ -296,6 +297,12 @@ sub wrap ($$$) {
     raw => $raw,
     nick => $opts->{nick},
     connection_name => $opts->{connection_name},
+    id => (join '-',
+           'IRC',
+           $opts->{connection_name} // '',
+           $raw->{channel},
+           $opts->{nick},
+           time),
   }, $class;
 } # wrap
 
