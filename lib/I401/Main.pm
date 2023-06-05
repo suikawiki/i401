@@ -50,6 +50,7 @@ sub register_rules {
 
 sub process_by_rules {
     my ($self, $args) = @_;
+    
     for (@{$self->{rules} ||= []}) {
         if ($_->{privmsg} and $_->{notice}) {
             next unless $args->{command} eq 'PRIVMSG' or
@@ -204,4 +205,23 @@ sub log ($$;%) {
   $self->logger->($text);
 } # log
 
+package I401::Main::Message;
+
+#wrap
+
+sub raw ($) { $_[0]->{raw} }
+
+sub is_mentioned ($) { 0 }
+
 1;
+
+=head1 LICENSE
+
+Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2014-2023 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

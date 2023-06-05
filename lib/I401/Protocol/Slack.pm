@@ -53,6 +53,7 @@ sub connect ($) {
                     channel => $json->{channel},
                     command => 'PRIVMSG',
                     text => $json->{text},
+                    message => I401::Protocol::Slack::Message->wrap ($json, $self),
                   });
                 }
               }
@@ -143,4 +144,45 @@ sub send_privmsg ($$$) {
                   text => $text});
 } # send_privmsg
 
+package I401::Protocol::Slack::Message;
+push our @ISA, qw(I401::Main::Message);
+
+sub wrap ($$$) {
+  my ($class, $raw, $con) = @_;
+  return bless {
+    raw => $raw,
+    user_id => $con->{user_id},
+  }, $class;
+} # wrap
+
+sub is_mentioned ($) {
+  my $self = $_[0];
+  return $self->{mentioned} if exists $self->{mentioned};
+
+  my $check_list; $check_list = sub {
+    for (@{$_[0]}) {
+      if ($_->{type} eq 'user' and defined $_->{user_id}) {
+        return 1 if $self->{user_id} eq $_->{user_id};
+      } elsif (defined $_->{elements} and ref $_->{elements} eq 'ARRAY') {
+        return 1 if $check_list->($_->{elements});
+      }
+    }
+    return 0;
+  };
+
+  $self->{mentioned} = eval { $check_list->($self->{raw}->{blocks}) };
+
+  undef $check_list;
+  return $self->{mentioned};
+} # is_mentioned
+
 1;
+
+=head1 LICENSE
+
+Copyright 2016-2023 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
