@@ -49,29 +49,34 @@ sub register_rules {
 }
 
 sub process_by_rules {
-    my ($self, $args) = @_;
-    for (@{$self->{rules} ||= []}) {
-        if ($_->{privmsg} and $_->{notice}) {
-            next unless $args->{command} eq 'PRIVMSG' or
-                        $args->{command} eq 'NOTICE';
-        } elsif ($_->{privmsg}) {
-            next unless $args->{command} eq 'PRIVMSG';
-        } elsif ($_->{notice}) {
-            next unless $args->{command} eq 'NOTICE';
-        }
-
-        my $pattern = defined $_->{pattern} ? $_->{pattern} : qr/(?:)/;
-        next       unless $args->{text} =~ /$pattern/;
-        $_->{code}->($self, $args); ## $1... of ^ available from |code|
+  my ($self, $args) = @_;
+  
+  for my $rule (@{$self->{rules} ||= []}) {
+    if ($rule->{privmsg} and $rule->{notice}) {
+      next unless $args->{command} eq 'PRIVMSG' or
+                  $args->{command} eq 'NOTICE';
+    } elsif ($rule->{privmsg}) {
+      next unless $args->{command} eq 'PRIVMSG';
+    } elsif ($rule->{notice}) {
+      next unless $args->{command} eq 'NOTICE';
     }
-}
 
-sub send_notice ($$$) {
-  return $_[0]->protocol->send_notice ($_[1], $_[2]);
+    if ($rule->{mentioned}) {
+      next unless $args->{message}->is_mentioned;
+    }
+    
+    my $pattern = defined $rule->{pattern} ? $rule->{pattern} : qr/(?:)/;
+    next unless $args->{text} =~ /$pattern/;
+    $rule->{code}->($self, $args); ## $1... of ^ available from |code|
+  }
+} # process_by_rules
+
+sub send_notice ($$$;%) {
+  return shift->protocol->send_notice (@_);
 } # send_notice
 
-sub send_privmsg ($$$) {
-  return $_[0]->protocol->send_privmsg ($_[1], $_[2]);
+sub send_privmsg ($$$;%) {
+  return shift->protocol->send_privmsg (@_);
 } # send_privmsg
 
 sub listen {
@@ -204,4 +209,25 @@ sub log ($$;%) {
   $self->logger->($text);
 } # log
 
+package I401::Main::Message;
+
+#protocol
+#wrap
+
+sub connection_name ($) { $_[0]->{connection_name} }
+sub raw ($) { $_[0]->{raw} }
+
+sub is_mentioned ($) { 0 }
+
 1;
+
+=head1 LICENSE
+
+Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2014-2023 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

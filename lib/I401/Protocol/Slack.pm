@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use JSON::PS;
 use Web::URL;
-use Web::Transport::ConnectionClient;
+use Web::Transport::BasicClient;
 use Web::Transport::WSClient;
 
 sub new_from_i401_and_config_and_logger ($$$) {
@@ -22,7 +22,7 @@ sub log ($$;%) {
 sub connect ($) {
   my $self = $_[0];
   my $url1 = Web::URL->parse_string (q<https://slack.com/api/rtm.connect>);
-  my $http = $self->{http} = Web::Transport::ConnectionClient->new_from_url ($url1);
+  my $http = $self->{http} = Web::Transport::BasicClient->new_from_url ($url1);
   $http->request (url => $url1, params => {
     token => $self->config->{slack_token},
   })->then (sub {
@@ -53,6 +53,7 @@ sub connect ($) {
                     channel => $json->{channel},
                     command => 'PRIVMSG',
                     text => $json->{text},
+                    message => I401::Protocol::Slack::Message->wrap ($json, $self),
                   });
                 }
               }
@@ -129,18 +130,74 @@ sub send_notice ($$$) {
                   text => $text});
 } # send_notice
 
-sub send_privmsg ($$$) {
-  my ($self, $channel, $text) = @_;
+sub send_privmsg ($$$;%) {
+  my ($self, $channel, $text, %args) = @_;
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
+
+  my $params = {token => $self->config->{slack_token},
+                as_user => 'false',
+                username => $self->config->{nick},
+                channel => $channel,
+                text => $text};
+  
+  if (defined $args{in_reply_to}) {
+    my $raw = $args{in_reply_to}->raw;
+    $params->{thread_ts} = $raw->{ts};
+    $params->{reply_broadcast} = 'true';
+  }
+
+  use Data::Dumper;
+  warn Dumper $params;
+  
   $self->{http}->request
       (method => 'POST',
        url => Web::URL->parse_string (q<https://slack.com/api/chat.postMessage>),
-       params => {token => $self->config->{slack_token},
-                  as_user => 'false',
-                  username => $self->config->{nick},
-                  channel => $channel,
-                  text => $text});
+       params => $params);
 } # send_privmsg
 
+package I401::Protocol::Slack::Message;
+push our @ISA, qw(I401::Main::Message);
+
+sub protocol ($) { 'Slack' }
+
+sub wrap ($$$) {
+  my ($class, $raw, $con) = @_;
+  return bless {
+    raw => $raw,
+    user_id => $con->{user_id},
+    connection_name => $con->config->{name},
+  }, $class;
+} # wrap
+
+sub is_mentioned ($) {
+  my $self = $_[0];
+  return $self->{mentioned} if exists $self->{mentioned};
+
+  my $check_list; $check_list = sub {
+    for (@{$_[0]}) {
+      if ($_->{type} eq 'user' and defined $_->{user_id}) {
+        return 1 if $self->{user_id} eq $_->{user_id};
+      } elsif (defined $_->{elements} and ref $_->{elements} eq 'ARRAY') {
+        return 1 if $check_list->($_->{elements});
+      }
+    }
+    return 0;
+  };
+
+  $self->{mentioned} = eval { $check_list->($self->{raw}->{blocks}) };
+
+  undef $check_list;
+  return $self->{mentioned};
+} # is_mentioned
+
 1;
+
+=head1 LICENSE
+
+Copyright 2016-2023 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

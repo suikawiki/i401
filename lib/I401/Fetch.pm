@@ -4,6 +4,7 @@ use warnings;
 use Promise;
 use Web::URL;
 use Web::Transport::BasicClient;
+use JSON::PS;
 
 sub get_by_url_string ($$) {
   my ($class, $url_string) = @_;
@@ -25,6 +26,35 @@ sub get_by_url_string ($$) {
   });
 } # get_by_url_string
 
+my $Clients = {};
+our $ClientOptions;
+
+sub post_data ($$$;%) {
+  my ($class, $url, $data, %args) = @_;
+
+  my $client = $Clients->{$url->get_origin->to_ascii} ||= Web::Transport::BasicClient->new_from_url ($url, $ClientOptions);
+  return $client->request (
+    url => $url,
+    method => 'POST',
+    headers => {
+      'content-type' => 'application/json; charset=utf-8',
+    },
+    body => perl2json_bytes ($data),
+  )->then (sub {
+    my $res = $_[0];
+    die $res unless $res->status == 200;
+  });
+} # post_data
+
+sub close ($) {
+  my @p;
+  for (values %$Clients) {
+    push @p, $_->close;
+  }
+  $Clients = {};
+  return Promise->all (\@p);
+} # close
+
 1;
 
 =head1 AUTHOR
@@ -33,7 +63,7 @@ Wakaba <wakaba@suikawiki.org>.
 
 =head1 LICENSE
 
-Copyright 2022 Wakaba <wakaba@suikawiki.org>.
+Copyright 2022-2023 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

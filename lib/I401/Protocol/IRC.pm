@@ -31,14 +31,15 @@ sub client {
           $self->log ('Warning: TLS is disabled; this connection is unsafe!');
         }
 
+        my $mynick;
         $client->set_nick_change_cb(sub {
             my $nick = shift;
             if ($nick =~ /\A(.*[^0-9]|)401\z/s) {
-                return $1.400;
+                return $mynick = $1.400;
             } elsif ($nick =~ /\A(.*[^0-9]|)([0-9]+)\z/s) {
-                return $1.($2+1);
+                return $mynick = $1.($2+1);
             } else {
-                return $nick.2;
+                return $mynick = $nick.2;
             }
         });
 
@@ -68,7 +69,7 @@ sub client {
             scalar ($config->{hostname} || die "No |hostname|"),
             scalar ($config->{port} || 6667),
             {
-                nick => ($config->{nick} || die "No |nick|"),
+                nick => ($mynick = $config->{nick} || die "No |nick|"),
                 real => $config->{real},
                 user => $config->{user},
                 password => $config->{password},
@@ -142,6 +143,14 @@ sub client {
                         channel => $channel,
                         command => $msg->{command},
                         text => $text,
+                        message => I401::Protocol::IRC::Message->wrap ({
+                          channel => $channel,
+                          nick => $nick,
+                          text => $text,
+                        }, {
+                          nick => $mynick,
+                          connection_name => $config->{name},
+                        }),
                     });
                 }
             }
@@ -162,6 +171,14 @@ sub client {
                         channel => $channel,
                         command => $msg->{command},
                         text => $text,
+                        message => I401::Protocol::IRC::Message->wrap ({
+                          channel => $channel,
+                          nick => $nick,
+                          text => $text,
+                        }, {
+                          nick => $mynick,
+                          connection_name => $config->{name},
+                        }),
                     });
                 }
             }
@@ -244,10 +261,16 @@ sub send_notice ($$$) {
   }
 } # send_notice
 
-sub send_privmsg ($$$) {
-  my ($self, $channel, $text) = @_;
+sub send_privmsg ($$$;%) {
+  my ($self, $channel, $text, %args) = @_;
   $text =~ s/\A[\x0D\x0A]+//;
   $text =~ s/[\x0D\x0A]+\z//;
+
+  if ($args{in_reply_to}) {
+    my $nick = $args{in_reply_to}->raw->{nick};
+    $text .= ' > ' . $nick;
+  }
+  
   for my $text (split /\x0D?\x0A/, $text) {
     $self->send_join ($channel);
     my $charset = $self->get_channel_charset($channel);
@@ -262,13 +285,31 @@ sub send_privmsg ($$$) {
   }
 } # send_privmsg
 
+package I401::Protocol::IRC::Message;
+push our @ISA, qw(I401::Main::Message);
+
+sub protocol ($) { 'IRC' }
+
+sub wrap ($$$) {
+  my ($class, $raw, $opts) = @_;
+  return bless {
+    raw => $raw,
+    nick => $opts->{nick},
+    connection_name => $opts->{connection_name},
+  }, $class;
+} # wrap
+
+sub is_mentioned ($) {
+  return $_[0]->{raw}->{text} =~ /\Q$_[0]->{nick}\E/;
+} # is_mentioned
+
 1;
 
 =head1 LICENSE
 
 Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
 
-Copyright 2014-2021 Wakaba <wakaba@suikawiki.org>.
+Copyright 2014-2023 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
