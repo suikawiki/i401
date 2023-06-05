@@ -144,9 +144,12 @@ sub client {
                         command => $msg->{command},
                         text => $text,
                         message => I401::Protocol::IRC::Message->wrap ({
+                          channel => $channel,
+                          nick => $nick,
                           text => $text,
                         }, {
                           nick => $mynick,
+                          connection_name => $config->{name},
                         }),
                     });
                 }
@@ -169,9 +172,12 @@ sub client {
                         command => $msg->{command},
                         text => $text,
                         message => I401::Protocol::IRC::Message->wrap ({
+                          channel => $channel,
+                          nick => $nick,
                           text => $text,
                         }, {
                           nick => $mynick,
+                          connection_name => $config->{name},
                         }),
                     });
                 }
@@ -274,12 +280,16 @@ sub send_privmsg ($$$) {
 } # send_privmsg
 
 package I401::Protocol::IRC::Message;
+push our @ISA, qw(I401::Main::Message);
+
+sub protocol ($) { 'IRC' }
 
 sub wrap ($$$) {
   my ($class, $raw, $opts) = @_;
   return bless {
     raw => $raw,
     nick => $opts->{nick},
+    connection_name => $opts->{connection_name},
   }, $class;
 } # wrap
 

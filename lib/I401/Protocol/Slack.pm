@@ -147,11 +147,14 @@ sub send_privmsg ($$$) {
 package I401::Protocol::Slack::Message;
 push our @ISA, qw(I401::Main::Message);
 
+sub protocol ($) { 'Slack' }
+
 sub wrap ($$$) {
   my ($class, $raw, $con) = @_;
   return bless {
     raw => $raw,
     user_id => $con->{user_id},
+    connection_name => $con->config->{name},
   }, $class;
 } # wrap
 
