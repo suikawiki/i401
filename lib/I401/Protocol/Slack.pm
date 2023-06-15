@@ -29,6 +29,7 @@ sub connect ($) {
     my $res = $_[0];
     die $res unless $res->status == 200;
     my $json = json_bytes2perl $res->body_bytes;
+
     my $url2 = Web::URL->parse_string ($json->{url}) or die "No URL";
     $self->{user_id} = $json->{self}->{id};
 
@@ -157,6 +158,7 @@ package I401::Protocol::Slack::Message;
 push our @ISA, qw(I401::Main::Message);
 
 sub protocol ($) { 'Slack' }
+sub myself ($) { $_[0]->{user_id} }
 
 sub wrap ($$$) {
   my ($class, $raw, $con) = @_;

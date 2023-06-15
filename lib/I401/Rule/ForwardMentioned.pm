@@ -10,6 +10,11 @@ sub set_url_string ($$) {
   $URL = Web::URL->parse_string ($_[1]) or die "Bad URL specified: <$_[1]>";
 } # set_url_string
 
+my $PingURL;
+sub set_ping_url_string ($$) {
+  $PingURL = Web::URL->parse_string ($_[1]) or die "Bad ping URL specified: <$_[1]>";
+} # set_ping_url_string
+
 sub get ($) {
   return ({
     mentioned => 1,
@@ -21,10 +26,13 @@ sub get ($) {
         protocol => $m->protocol,
         connection_name => $m->connection_name,
         message => $m->raw,
+        myself => $m->myself,
         id => $m->id,
       };
 
-      return I401::Fetch->post_data ($URL, $data);
+      return I401::Fetch->post_data ($URL, $data)->then (sub {
+        return I401::Fetch->post_data ($PingURL, {}) if defined $PingURL;
+      });
     },
   });
 } # get

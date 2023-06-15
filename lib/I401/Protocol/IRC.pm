@@ -290,6 +290,7 @@ push our @ISA, qw(I401::Main::Message);
 use Time::HiRes qw(time);
 
 sub protocol ($) { 'IRC' }
+sub myself ($) { $_[0]->{nick} }
 
 sub wrap ($$$) {
   my ($class, $raw, $opts) = @_;
