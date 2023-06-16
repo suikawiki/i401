@@ -38,6 +38,7 @@ sub post_data ($$$;%) {
     method => 'POST',
     headers => {
       'content-type' => 'application/json; charset=utf-8',
+      %{$args{headers} or {}},
     },
     body => perl2json_bytes ($data),
   )->then (sub {

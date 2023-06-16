@@ -21,6 +21,9 @@ sub _set_protocol ($) {
   if ($proto eq 'slack') {
     require I401::Protocol::Slack;
     $cls = 'I401::Protocol::Slack';
+  } elsif ($proto eq 'discord') {
+    require I401::Protocol::Discord;
+    $cls = 'I401::Protocol::Discord';
   } elsif ($proto eq '' or $proto eq 'irc') {
     require I401::Protocol::IRC;
     $cls = 'I401::Protocol::IRC';
@@ -50,7 +53,7 @@ sub register_rules {
 
 sub process_by_rules {
   my ($self, $args) = @_;
-  
+
   for my $rule (@{$self->{rules} ||= []}) {
     if ($rule->{privmsg} and $rule->{notice}) {
       next unless $args->{command} eq 'PRIVMSG' or
@@ -61,10 +64,11 @@ sub process_by_rules {
       next unless $args->{command} eq 'NOTICE';
     }
 
+    
     if ($rule->{mentioned}) {
       next unless $args->{message}->is_mentioned;
     }
-    
+
     my $pattern = defined $rule->{pattern} ? $rule->{pattern} : qr/(?:)/;
     next unless $args->{text} =~ /$pattern/;
     $rule->{code}->($self, $args); ## $1... of ^ available from |code|
