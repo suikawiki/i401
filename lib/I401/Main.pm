@@ -69,6 +69,8 @@ sub process_by_rules {
       next unless $args->{message}->is_mentioned;
     }
 
+    next if $args->{message}->is_bot;
+
     my $pattern = defined $rule->{pattern} ? $rule->{pattern} : qr/(?:)/;
     next unless $args->{text} =~ /$pattern/;
     $rule->{code}->($self, $args); ## $1... of ^ available from |code|
@@ -224,6 +226,7 @@ sub id ($) { $_[0]->{id} }
 sub myself ($) { undef }
 
 sub is_mentioned ($) { 0 }
+sub is_bot ($) { 0 }
 
 1;
 
