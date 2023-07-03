@@ -1,6 +1,7 @@
 package I401::Protocol::Discord;
 use strict;
 use warnings;
+use Time::HiRes qw(time);
 use JSON::PS;
 use Web::URL;
 use Web::Transport::BasicClient;
@@ -86,13 +87,17 @@ sub connect ($) {
         } elsif ($op == 0) {
           if ($json->{t} eq 'MESSAGE_CREATE') {
             my $message = $json->{d};
+
             if (not $message->{author}->{id} eq $self->{user_id}) {
-              $self->{i401}->process_by_rules({
-                #prefix => $msg->{prefix},
-                channel => $message->{channel_id},
-                command => 'PRIVMSG',
-                text => $message->{content},
-                message => I401::Protocol::Discord::Message->wrap ($json->{d}, $self),
+              my $msg = I401::Protocol::Discord::Message->wrap ($json->{d}, $self);
+              $self->_load_for_message ($msg)->then (sub {
+                return $self->{i401}->process_by_rules({
+                  #prefix => $msg->{prefix},
+                  channel => $message->{channel_id},
+                  command => 'PRIVMSG',
+                  text => $message->{content},
+                  message => $msg,
+                });
               });
             }
           } elsif ($json->{t} eq 'READY') {
@@ -159,6 +164,32 @@ sub reconnect ($) {
   };
 } # reconnect
 
+sub _load_for_message ($$) {
+  my ($self, $msg) = @_;
+  return Promise->resolve->then (sub {
+    my $raw = $msg->raw;
+    my $roles = $raw->{mention_roles} || [];
+    return unless @$roles;
+    
+    return if time < ($self->{_guild_roles_updated}->{$raw->{guild_id}} || 0) + 10*60*60;
+    return if defined $self->{_guild_roles}->{$raw->{guild_id}};
+
+    $self->log ("Fetching guild members for |$raw->{guild_id}|...");
+    return I401::Fetch->get_by_url_string (
+      q<https://discord.com/api/guilds/>.$raw->{guild_id}.q</members/>.$self->{user_id},
+      headers => {
+        authorization => 'Bot ' . $self->config->{discord_token},
+        'user-agent' => 'DiscordBot ($url, $versionNumber)',
+      },
+    )->then (sub {
+      my $res = $_[0];
+      my $json = json_bytes2perl $res->body_bytes;
+      $self->{_guild_roles}->{$raw->{guild_id}} = $json->{roles} || {};
+      $self->{_guild_roles_updated}->{$raw->{guild_id}} = time;
+    });
+  });
+} # _load_for_message
+
 *send_notice = \&send_privmsg;
 sub send_privmsg ($$$;%) {
   my ($self, $channel, $text, %args) = @_;
@@ -200,6 +231,7 @@ sub wrap ($$$) {
            $raw->{guild_id},
            $raw->{channel_id},
            $raw->{id}),
+    roles => {map { $_ => 1 } @{$con->{_guild_roles}->{$raw->{guild_id}} || []}},
   }, $class;
 } # wrap
 
@@ -213,8 +245,18 @@ sub is_mentioned ($) {
     }
   }
 
+  for (@{$self->{raw}->{mention_roles} or []}) {
+    if ($self->{roles}->{$_}) {
+      return $self->{mentioned} = 1;
+    }
+  }
+
   return $self->{mentioned} = 0;
 } # is_mentioned
+
+sub is_bot ($) {
+  return !! $_[0]->{raw}->{author}->{bot};
+}
 
 1;
 
