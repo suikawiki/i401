@@ -6,8 +6,8 @@ use Web::URL;
 use Web::Transport::BasicClient;
 use JSON::PS;
 
-sub get_by_url_string ($$) {
-  my ($class, $url_string) = @_;
+sub get_by_url_string ($$;%) {
+  my ($class, $url_string, %args) = @_;
 
   my $url = Web::URL->parse_string ($url_string);
   return Promise->reject ("Bad URL <$url_string>")
@@ -16,6 +16,9 @@ sub get_by_url_string ($$) {
   my $client = Web::Transport::BasicClient->new_from_url ($url);
   return $client->request (
     method => 'GET',
+    headers => {
+      %{$args{headers} or {}},
+    },
     url => $url,
   )->then (sub {
     my $res = $_[0];
