@@ -29,7 +29,7 @@ Package::Stash~0.40
 Package::Stash::XS~0.30
 Params::ValidationCompiler~0.31
 Path::Tiny~0.144
-Role::Tiny::With~2.002004
+Role::Tiny~2.002004
 Scalar::Util~1.63
 Socket~2.037
 Specio~0.48
