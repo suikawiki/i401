@@ -12,11 +12,17 @@ An IRC / Slack bot with Web API.
 
 Wakaba <wakaba@suikawiki.org>.
 
+* History
+
+On 8 July 2024 the repository was transferred to the SuikaWiki project
+and located at <https://github.com/suikawiki/i401>, until then it was
+located at <https://github.com/wakaba/i401>.
+
 * License
 
 Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
 
-Copyright 2014-2023 Wakaba <wakaba@suikawiki.org>.
+Copyright 2014-2024 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
