@@ -130,6 +130,7 @@ sub listen {
                   $req->method, $path,
                   (perl2json_chars $req->headers),
                   $req->content; # bytes
+              $method = 'send_notice';
             } else {
               $channel = $req->parm('channel');
               $msg = $req->parm('message');
