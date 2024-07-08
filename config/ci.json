@@ -3,7 +3,7 @@
     "build": [
       "make deps",
       "rm -fr modules/*/bin modules/*/.git modules/*/t modules/*/t_deps",
-      {"docker_build": "quay.io/wakaba/i401"}
+      {"docker_build": "quay.io/suikawiki/i401"}
     ],
     "tests": [
       "make test",
@@ -12,7 +12,7 @@
       "curl -f http://0:5511/robots.txt || (docker logs server && false)",
       "docker logs server",
       
-      {"docker_push": "quay.io/wakaba/i401"}
+      {"docker_push": "quay.io/suikawiki/i401"}
     ],
     "merger": true,
     "gaa": true

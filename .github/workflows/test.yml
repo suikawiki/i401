@@ -104,7 +104,7 @@
                "run" : "rm -fr modules/*/bin modules/*/.git modules/*/t modules/*/t_deps"
             },
             {
-               "run" : "docker build -t quay\u005C.io\u005C/wakaba\u005C/i401 \u005C."
+               "run" : "docker build -t quay\u005C.io\u005C/suikawiki\u005C/i401 \u005C."
             },
             {
                "run" : "make test"
@@ -128,14 +128,14 @@
             },
             {
                "if" : "${{ github.ref == 'refs/heads/master' }}",
-               "run" : "docker push quay\u005C.io\u005C/wakaba\u005C/i401"
+               "run" : "docker push quay\u005C.io\u005C/suikawiki\u005C/i401"
             },
             {
                "env" : {
                   "BWALLER_URL" : "${{ secrets.BWALLER_URL }}"
                },
                "if" : "${{ github.ref == 'refs/heads/master' }}",
-               "run" : "curl -sSf $BWALLER_URL | BWALL_GROUP=docker BWALL_NAME=quay.io/wakaba/i401 bash"
+               "run" : "curl -sSf $BWALLER_URL | BWALL_GROUP=docker BWALL_NAME=quay.io/suikawiki/i401 bash"
             },
             {
                "if" : "${{ always () }}",
