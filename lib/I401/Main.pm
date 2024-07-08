@@ -155,7 +155,11 @@ sub listen {
                     text => $msg,
                 }) if $apply_rules;
             };
-            $req->respond([202, 'Accepted', {}, '202 Accepted']);
+            if ($path eq '/webhook') {
+              $req->respond([200, 'Accepted', {}, '200 Accepted']);
+            } else {
+              $req->respond([202, 'Accepted', {}, '202 Accepted']);
+            }
         },
     );
 }
