@@ -5,6 +5,7 @@ use AnyEvent;
 use AnyEvent::Handle;
 use AnyEvent::HTTPD;
 use Web::Encoding;
+use JSON::PS;
 
 sub new_from_config ($$) {
   return bless {config => $_[1]}, $_[0];
@@ -107,7 +108,7 @@ sub listen {
               return $req->respond ([200, 'OK', {}, "User-agent: *\nDisallow: /"]);
             }
             
-            unless ($path =~ m{\A/(notice|privmsg)\z}) {
+            unless ($path =~ m{\A/(notice|privmsg|webhook)\z}) {
                 return $req->respond([400, 'Not found', {}, '404 Not found']);
             }
             my $method = 'send_' . $1;
@@ -120,18 +121,29 @@ sub listen {
                                   '400 Access from browser not allowed'])
                 if defined $req->headers->{origin};
 
-            my $channel = $req->parm('channel');
-            my $msg = $req->parm('message');
-            my $apply_rules = $req->parm('rules');
+            my $channel;
+            my $msg;
+            my $apply_rules;
+            if ($path eq '/webhook') {
+              $channel = $self->config->{webhook_channel};
+              $msg = sprintf "%s %s\n%s\n%s",
+                  $req->method, $path,
+                  (perl2json_chars $req->headers),
+                  $req->content; # bytes
+            } else {
+              $channel = $req->parm('channel');
+              $msg = $req->parm('message');
+              $apply_rules = $req->parm('rules');
 
+              $req->respond([400, 'Bad message', {}, '400 Bad message'])
+                  unless defined $msg and length $msg;
+
+              $channel = decode_web_utf8 $channel;
+              $msg = decode_web_utf8 $msg;
+            }
             $req->respond([400, 'Bad channel', {}, '400 Bad channel'])
                 unless defined $channel and length $channel;
-            $req->respond([400, 'Bad message', {}, '400 Bad message'])
-                unless defined $msg and length $msg;
-
-            $channel = decode_web_utf8 $channel;
-            $msg = decode_web_utf8 $msg;
-
+            
             AE::postpone {
                 $self->$method($channel, $msg);
 
