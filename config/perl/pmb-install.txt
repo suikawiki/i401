@@ -30,7 +30,7 @@ Package::Stash~0.40
 Package::Stash::XS~0.30
 Params::ValidationCompiler~0.31
 Path::Tiny~0.146
-Role::Tiny::With~2.002004
+Role::Tiny~2.002004
 Scalar::Util~1.66
 Socket~2.038
 Specio::Declare~0.48
@@ -44,7 +44,7 @@ Text::Diff~1.45
 Time::HiRes~1.9764
 Try::Tiny~0.32
 Types::Serialiser~1.01
-URI~5.29
+URI~5.30
 Variable::Magic~0.64
 XString~0.005
 common::sense~3.75
