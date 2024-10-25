@@ -13,7 +13,7 @@ sub get {
         code => sub {
             my ($irc, $args) = @_;
             my $seq = $channel_sequences->{$args->{channel}} ||= [ split '', $string ];
-            if ($seq->[0] eq $args->{text}) {
+            if ($seq->[0] eq $args->{message}->text) {
                 push @$seq, shift @$seq;
                 $irc->send_notice($args->{channel}, $seq->[0]);
                 push @$seq, shift @$seq;
@@ -23,3 +23,16 @@ sub get {
 }
 
 1;
+
+=head1 LICENSE
+
+Copyright 2014 pokutuna <popopopopokutuna@gmail.com>.
+
+Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2024 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

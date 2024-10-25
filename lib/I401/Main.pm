@@ -25,6 +25,9 @@ sub _set_protocol ($) {
   } elsif ($proto eq 'discord') {
     require I401::Protocol::Discord;
     $cls = 'I401::Protocol::Discord';
+  } elsif ($proto eq 'chatwork') {
+    require I401::Protocol::Chatwork;
+    $cls = 'I401::Protocol::Chatwork';
   } elsif ($proto eq '' or $proto eq 'irc') {
     require I401::Protocol::IRC;
     $cls = 'I401::Protocol::IRC';
@@ -73,7 +76,7 @@ sub process_by_rules {
     next if $args->{message}->is_bot;
 
     my $pattern = defined $rule->{pattern} ? $rule->{pattern} : qr/(?:)/;
-    next unless $args->{text} =~ /$pattern/;
+    next unless $args->{message}->text =~ /$pattern/;
     $rule->{code}->($self, $args); ## $1... of ^ available from |code|
   }
 } # process_by_rules
@@ -107,6 +110,24 @@ sub listen {
             if ($path eq '/robots.txt') {
               return $req->respond ([200, 'OK', {}, "User-agent: *\nDisallow: /"]);
             }
+
+            if (defined $self->config->{chatwork_webhook_path} and
+                $self->config->{chatwork_webhook_path} eq $path) {
+              return $req->respond
+                  ([405, 'Method not allowed', {Allow => 'POST'},
+                    '405 Method not allowed'])
+                  unless $req->method eq 'POST';
+              return $req->respond([400, 'Access from browser not allowed', {},
+                                    '400 Access from browser not allowed'])
+                  if defined $req->headers->{origin};
+
+              $self->protocol->handle_webhook (
+                json_bytes2perl ($req->content // ''),
+                signature => $req->headers->{'x-chatworkwebhooksignature'},
+              );
+              $req->respond ([200, 'Accepted', {}, '200 Accepted']);
+              return;
+            }
             
             unless ($path =~ m{\A/(notice|privmsg|webhook)\z}) {
                 return $req->respond([400, 'Not found', {}, '404 Not found']);
@@ -129,7 +150,7 @@ sub listen {
               $msg = sprintf "%s %s\n%s\n%s",
                   $req->method, $path,
                   (perl2json_chars $req->headers),
-                  $req->content; # bytes
+                  $req->content // ''; # bytes
               $method = 'send_notice';
             } else {
               $channel = $req->parm('channel');
@@ -244,6 +265,7 @@ sub myself ($) { undef }
 
 sub is_mentioned ($) { 0 }
 sub is_bot ($) { 0 }
+sub text ($) { '' }
 
 1;
 

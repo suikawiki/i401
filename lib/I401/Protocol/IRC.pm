@@ -142,7 +142,6 @@ sub client {
                         prefix => $msg->{prefix},
                         channel => $channel,
                         command => $msg->{command},
-                        text => $text,
                         message => I401::Protocol::IRC::Message->wrap ({
                           channel => $channel,
                           nick => $nick,
@@ -170,7 +169,6 @@ sub client {
                         prefix => $msg->{prefix},
                         channel => $channel,
                         command => $msg->{command},
-                        text => $text,
                         message => I401::Protocol::IRC::Message->wrap ({
                           channel => $channel,
                           nick => $nick,
@@ -311,13 +309,15 @@ sub is_mentioned ($) {
   return $_[0]->{raw}->{text} =~ /\Q$_[0]->{nick}\E/;
 } # is_mentioned
 
+sub text ($) { $_[0]->{raw}->{text} }
+
 1;
 
 =head1 LICENSE
 
 Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
 
-Copyright 2014-2023 Wakaba <wakaba@suikawiki.org>.
+Copyright 2014-2024 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

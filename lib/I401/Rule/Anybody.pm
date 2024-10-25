@@ -20,10 +20,21 @@ sub get ($) {
       my ($irc, $args) = @_;
       my $users = $irc->get_channel_users($args->{channel});
       my $msg = join(' > ', $BeggingText->[int(rand(@$BeggingText))], $users->[int(rand(@$users))]);
-      my $method = $args->{text} =~ />\s?(?:誰|だれ)か/ ? 'send_privmsg' : 'send_notice';
+      my $method = $args->{message}->text =~ />\s?(?:誰|だれ)か/ ? 'send_privmsg' : 'send_notice';
       $irc->$method($args->{channel}, $msg);
     },
   });
 }
 
 1;
+
+=head1 LICENSE
+
+Copyright 2014 Hatena <http://www.hatena.ne.jp/company/>.
+
+Copyright 2024 Wakaba <wakaba@suikawiki.org>.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

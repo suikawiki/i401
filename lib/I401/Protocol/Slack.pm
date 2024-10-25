@@ -49,11 +49,11 @@ sub connect ($) {
                 if ($json->{type} eq 'message' and
                     not defined $json->{message} and
                     not defined $json->{bot_id}) {
+                  #$json->{text}
                   $self->{i401}->process_by_rules({
                     #prefix => $msg->{prefix},
                     channel => $json->{channel},
                     command => 'PRIVMSG',
-                    text => $json->{text},
                     message => I401::Protocol::Slack::Message->wrap ($json, $self),
                   });
                 }
@@ -196,11 +196,13 @@ sub is_mentioned ($) {
   return $self->{mentioned};
 } # is_mentioned
 
+sub text ($) { $_[0]->{raw}->{text} }
+
 1;
 
 =head1 LICENSE
 
-Copyright 2016-2023 Wakaba <wakaba@suikawiki.org>.
+Copyright 2016-2024 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

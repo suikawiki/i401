@@ -90,12 +90,12 @@ sub connect ($) {
 
             if (not $message->{author}->{id} eq $self->{user_id}) {
               my $msg = I401::Protocol::Discord::Message->wrap ($json->{d}, $self);
+              #text => $message->{content},
               $self->_load_for_message ($msg)->then (sub {
-                return $self->{i401}->process_by_rules({
+                return $self->{i401}->process_by_rules ({
                   #prefix => $msg->{prefix},
                   channel => $message->{channel_id},
                   command => 'PRIVMSG',
-                  text => $message->{content},
                   message => $msg,
                 });
               });
@@ -256,13 +256,15 @@ sub is_mentioned ($) {
 
 sub is_bot ($) {
   return !! $_[0]->{raw}->{author}->{bot};
-}
+} # is_bot
+
+sub text ($) { $_[0]->{raw}->{content} }
 
 1;
 
 =head1 LICENSE
 
-Copyright 2023 Wakaba <wakaba@suikawiki.org>.
+Copyright 2023-2024 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
