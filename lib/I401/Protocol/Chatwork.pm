@@ -137,6 +137,8 @@ sub is_mentioned ($) {
   );
 } # is_mentioned
 
+sub text ($) { $_[0]->{raw}->{webhook_event}->{body} // '' }
+
 #is_bot
 
 1;
