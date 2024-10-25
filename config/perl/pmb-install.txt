@@ -44,7 +44,7 @@ Text::Diff~1.45
 Time::HiRes~1.9764
 Try::Tiny~0.32
 Types::Serialiser~1.01
-URI~5.30
+URI
 Variable::Magic~0.64
 XString~0.005
 common::sense~3.75
