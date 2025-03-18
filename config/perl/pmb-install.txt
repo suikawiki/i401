@@ -31,11 +31,11 @@ Object::Event~1.23
 Package::Stash~0.40
 Package::Stash::XS~0.30
 Params::ValidationCompiler~0.31
-Path::Tiny~0.146
+Path::Tiny~0.148
 Role::Tiny~2.002004
 Scalar::Util~1.68
 Socket~2.038
-Specio::Library::String~0.50
+Specio::Declare~0.50
 Sub::Exporter::Progressive~0.001013
 Sub::Quote~2.006008
 Test::Differences~0.71
