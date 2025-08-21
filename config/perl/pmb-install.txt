@@ -2,7 +2,6 @@ Algorithm::Diff~1.201
 AnyEvent~7.17
 AnyEvent::HTTP~2.25
 AnyEvent::HTTPD~0.93
-AnyEvent::Handle
 AnyEvent::IRC::Util
 B::Hooks::EndOfScope~0.28
 Canary::Stability~2013
@@ -33,12 +32,12 @@ Package::Stash~0.40
 Package::Stash::XS~0.30
 Params::ValidationCompiler~0.31
 Path::Tiny~0.150
-Role::Tiny~2.002004
+Role::Tiny::With~2.002004
 Scalar::Util~1.70
 Socket~2.040
 Specio::Library::String~0.52
 Sub::Exporter::Progressive~0.001013
-Sub::Quote~2.006008
+Sub::Quote~2.006009
 Test::Differences~0.72
 Test::Fatal~0.017
 Test::More~1.302214
