@@ -7,3 +7,4 @@
 - "../../modules/charclass" build tests
 - "../../modules/web-datetime" build tests
 - "../../modules/streams" build tests
+- "../../modules/promised-command" build tests

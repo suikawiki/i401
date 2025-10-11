@@ -5,3 +5,6 @@ AnyEvent::IRC::Client
 AnyEvent::IRC::Util
 Net::SSLeay
 Time::HiRes
+
+
+Digest::SHA

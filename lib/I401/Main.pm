@@ -188,19 +188,21 @@ sub listen {
 
 sub run_as_cv ($) {
   my $self = shift;
-  my $cv = AE::cv;
+  $self->{main_cv} = AE::cv;
 
   $self->_set_protocol;
   $self->connect;
   $self->listen;
 
+  $self->{main_cv}->begin;
   my $shutdown = sub {
     delete $self->{protocol};
-    $cv->send;
+    $self->{main_cv}->end;
   };
 
   $self->{sigterm} = AE::signal TERM => sub {
     $self->log('SIGTERM received', class => 'error');
+    $self->unlisten;
     $self->protocol->set_shutdown_mode ($shutdown);
     $self->disconnect;
     delete $self->{sigterm};
@@ -208,13 +210,14 @@ sub run_as_cv ($) {
   };
   $self->{sigint} = AE::signal INT => sub {
     $self->log('SIGINT received', class => 'error');
+    $self->unlisten;
     $self->protocol->set_shutdown_mode ($shutdown);
     $self->disconnect;
     delete $self->{sigterm};
     delete $self->{sigint};
   };
 
-  return $cv;
+  return $self->{main_cv};
 } # run_as_cv
 
 sub run ($) {
