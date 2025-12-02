@@ -35,7 +35,7 @@ Path::Tiny~0.150
 Role::Tiny~2.002004
 Scalar::Util~1.70
 Socket~2.040
-Specio::Declare~0.53
+Specio::Exporter~0.53
 Sub::Exporter::Progressive~0.001013
 Sub::Quote~2.006009
 Test::Differences~0.72
