@@ -36,6 +36,8 @@ sub client {
             my $nick = shift;
             if ($nick =~ /\A(.*[^0-9]|)401\z/s) {
                 return $mynick = $1.400;
+            } elsif ($nick =~ /\A(.*[^0-9]|)400\z/s) {
+                return $mynick = $1.402;
             } elsif ($nick =~ /\A(.*[^0-9]|)([0-9]+)\z/s) {
                 return $mynick = $1.($2+1);
             } else {
