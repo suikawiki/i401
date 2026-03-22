@@ -65,7 +65,13 @@ sub listen ($) {
                       my $channel = $json->{channel} // '';
                       my $msg = $json->{message} // '';
                       if (length $channel and length $msg) {
-                        $self->$method ($channel, $msg);
+                        eval {
+                          $self->$method ($channel, $msg);
+                        };
+                        if ($@) {
+                          warn "Failed: |$@|";
+                          return not 'done' unless $aborted;
+                        }
                       } else {
                         # XXX
                       }
@@ -79,7 +85,6 @@ sub listen ($) {
                   ## message is broken.
                   
                   if ($aborted) {
-                    warn "aborted XXX";
                     $r->cancel ("WSServer aborted");
                     ## XXX This might not cleanly discard server's
                     ## internal objects.
@@ -119,7 +124,7 @@ sub unlisten ($) {
 
 =head1 LICENSE
 
-Copyright 2025 Wakaba <wakaba@suikawiki.org>.
+Copyright 2025-2026 Wakaba <wakaba@suikawiki.org>.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
