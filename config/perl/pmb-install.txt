@@ -10,7 +10,7 @@ Carp~1.50
 Class::Data::Inheritable~0.10
 Class::Inspector~1.36
 Class::Singleton~1.6
-Clone~0.50
+Clone~0.51
 Clone::PP~1.09
 DateTime~1.67
 DateTime::Locale~1.46
